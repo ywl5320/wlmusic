@@ -53,7 +53,7 @@ public class MyMusic {
     }
 
     public void setOnPauseResumeListener(OnPauseResumeListener onPauseResumeListener) {
-        MyMusic.onPauseResumeListener = onPauseResumeListener;
+        this.onPauseResumeListener = onPauseResumeListener;
     }
 
     public void parpared()
@@ -75,6 +75,10 @@ public class MyMusic {
         playNext = true;
         this.source = source;
         stop();
+    }
+
+    public void setPlayNext(boolean playNext) {
+        this.playNext = playNext;
     }
 
     public void start()
@@ -140,7 +144,7 @@ public class MyMusic {
         return duration;
     }
 
-    public void onCallParpared()
+    private void onCallParpared()
     {
         if(onParparedListener != null)
         {
@@ -148,7 +152,7 @@ public class MyMusic {
         }
     }
 
-    public void onCallError(int code, String msg)
+    private void onCallError(int code, String msg)
     {
         if(onErrorListener != null)
         {
@@ -156,7 +160,7 @@ public class MyMusic {
         }
     }
 
-    public void onCallLoad(boolean load)
+    private void onCallLoad(boolean load)
     {
         if(onLoadListener != null)
         {
@@ -164,7 +168,7 @@ public class MyMusic {
         }
     }
 
-    public void onCallInfo(int currSec, int totalSec)
+    private void onCallInfo(int currSec, int totalSec)
     {
         if(onInfoListener != null && timeBean != null)
         {
@@ -175,7 +179,7 @@ public class MyMusic {
         }
     }
 
-    public void onCallComplete()
+    private void onCallComplete()
     {
         if(onCompleteListener != null)
         {
