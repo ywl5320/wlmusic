@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="请选择省份"
+            android:textSize="16dp"
+            android:gravity="center"
+            android:textColor="@color/color_222222"
+            android:background="@drawable/white_top_drawable_r4"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_ededed"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_white"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_ededed"/>
+        <TextView
+            android:id="@+id/tv_selected"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="确定"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:textColor="@color/color_222222"
+            android:background="@drawable/white_buttom_drawable_r4"/>
+    </LinearLayout>
+
+</LinearLayout>

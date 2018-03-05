@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/btn_type"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/type_selecter_drawable"
+        android:textSize="14dp"
+        android:textColor="@color/color_333333"
+        android:text="新闻"
+        android:gravity="center"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginLeft="3dp"/>
+</LinearLayout>
