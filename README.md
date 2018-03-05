@@ -13,7 +13,7 @@
 ### 4、采用OpenSL ES直接底层播放
 ### 5、动态权限申请
 
-### [实例APP下载：4a2v](https://pan.baidu.com/s/1ADOTD8Fj_WJC07wCfGV0rQ)
+### [实例APP下载，密码：4a2v](https://pan.baidu.com/s/1ADOTD8Fj_WJC07wCfGV0rQ)
 
 ## 三、api-v1.0.0
 	
