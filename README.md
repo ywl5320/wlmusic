@@ -12,6 +12,11 @@
 ### 3、FFmpeg解码，兼容几乎所有类型的音频文件
 ### 4、采用OpenSL ES直接底层播放
 ### 5、动态权限申请
+### 6、迷你播放控制栏
+### 7、Activity动画
+### 8、Activity、Dialog沉浸状态栏
+### 9、网络接口返回数据再封装
+### ......
 
 ### [实例APP下载，密码：4a2v](https://pan.baidu.com/s/1ADOTD8Fj_WJC07wCfGV0rQ)
 
@@ -52,5 +57,9 @@
 
 	public void setOnPauseResumeListener(OnPauseResumeListener onPauseResumeListener) //暂停、恢复回调
 
+## 五、环境
+### 1、Android Studio 3.+
+### 2、Android 4.0+
+### 3、《中国网络广播》api数据
 
 ### create by ywl5320
