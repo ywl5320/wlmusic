@@ -30,14 +30,14 @@
 
 	    }
 
-### 需要权限：
+### 需要权限:
 
 	<uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-### 接入代码
+### 接入代码:
 
 	MyMusic myMusic = new MyMusic();
 	myMusic.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
