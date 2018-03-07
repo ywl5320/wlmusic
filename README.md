@@ -3,6 +3,21 @@
 
 ## [我的视频课程：《FFmpeg打造Android万能音频播放器》](https://edu.csdn.net/course/detail/6842)
 
+## Usage
+
+### Maven
+	<dependency>
+	  <groupId>ywl.ywl5320</groupId>
+	  <artifactId>libmusic</artifactId>
+	  <version>1.0.0</version>
+	  <type>pom</type>
+	</dependency>
+
+### Gradle
+
+	compile 'ywl.ywl5320:libmusic:1.0.0'
+
+
 ## 一、效果图
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/music.gif)<br/>
 
