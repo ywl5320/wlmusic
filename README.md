@@ -6,12 +6,14 @@
 ## Usage
 
 ### Maven
+
 	<dependency>
 	  <groupId>ywl.ywl5320</groupId>
 	  <artifactId>libmusic</artifactId>
 	  <version>1.0.0</version>
 	  <type>pom</type>
 	</dependency>
+	
 
 ### Gradle
 
