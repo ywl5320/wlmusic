@@ -3,9 +3,9 @@
 
 ## [我的视频课程：《FFmpeg打造Android万能音频播放器》](https://edu.csdn.net/course/detail/6842)
 
-## Usage
+## Usage:
 
-### Maven
+### Maven:
 
 	<dependency>
 	  <groupId>ywl.ywl5320</groupId>
@@ -15,11 +15,11 @@
 	</dependency>
 	
 
-### Gradle
+### Gradle:
 
 	compile 'ywl.ywl5320:libmusic:1.0.0'
 
-### 配置NDK编译平台
+### 配置NDK编译平台:
 
 	defaultConfig {
 		...
@@ -29,6 +29,14 @@
 		}
 
 	    }
+
+### 需要权限：
+
+	<uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 ### 接入代码
 
 	MyMusic myMusic = new MyMusic();
