@@ -19,6 +19,29 @@
 
 	compile 'ywl.ywl5320:libmusic:1.0.0'
 
+### 配置NDK编译平台
+
+	defaultConfig {
+		...
+		ndk {
+		    abiFilter("armeabi")
+		    abiFilter("x86")
+		}
+
+	    }
+### 接入代码
+
+	MyMusic myMusic = new MyMusic();
+	myMusic.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
+        myMusic.parpared();
+        //myMusic.setPlayNext(false);
+        myMusic.setOnParparedListener(new OnParparedListener() {
+            @Override
+            public void onParpared() {
+                myMusic.start();
+            }
+        });
+
 
 ## 一、效果图
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/music.gif)<br/>
