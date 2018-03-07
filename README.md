@@ -41,14 +41,14 @@
 
 	MyMusic myMusic = new MyMusic();
 	myMusic.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
-        myMusic.parpared();
-        //myMusic.setPlayNext(false);
-        myMusic.setOnParparedListener(new OnParparedListener() {
-            @Override
-            public void onParpared() {
-                myMusic.start();
-            }
-        });
+	myMusic.parpared();
+	//myMusic.setPlayNext(false);
+	myMusic.setOnParparedListener(new OnParparedListener() {
+	    @Override
+	    public void onParpared() {
+		myMusic.start();
+	    }
+	});
 
 
 ## 一、效果图
