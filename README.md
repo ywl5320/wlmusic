@@ -10,14 +10,14 @@
 	<dependency>
 	  <groupId>ywl.ywl5320</groupId>
 	  <artifactId>libmusic</artifactId>
-	  <version>1.0.1</version>
+	  <version>1.0.2</version>
 	  <type>pom</type>
 	</dependency>
 	
 
 ### Gradle:
 
-	compile 'ywl.ywl5320:libmusic:1.0.1'
+	compile 'ywl.ywl5320:libmusic:1.0.2'
 
 ### 配置NDK编译平台:
 
@@ -43,7 +43,9 @@
 	WlMusic wlMusic = new WlMusic();
 	wlMusic.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
 	wlMusic.parpared();
-	//wlMusic.setPlayNext(false);
+	//wlMusic.setPlayNext(false);//控制是否播放下一个
+	//wlMusic.setVolume(50);//音量控制（0~100）
+	//wlMusic.setPlayCircle(true); //循环播放短音频
 	wlMusic.setOnParparedListener(new OnParparedListener() {
 	    @Override
 	    public void onParpared() {
@@ -54,6 +56,12 @@
 #### 2、循环不停顿播放短音频（时长最多90s)
 
 	wlMusic.setPlayCircle(true);
+
+#### 3、播放raw文件和assets文件
+
+    url = RawAssetsUtil.getAssetsFilePath(this, "goready.wav");
+    url = RawAssetsUtil.getRawFilePath(this, R.raw.readygo, "readygo.wav");
+    wlMusic.setSource(url);
 	
 
 ## 一、效果图
@@ -70,6 +78,8 @@
 ### 8、Activity、Dialog沉浸状态栏
 ### 9、网络接口返回数据再封装
 ### 10、循环不间断播放短音频（时长小于90s) ---> add v1.0.1
+### 11、可设置音量大小 ---> add v1.0.2
+### 12、播放raw和assets ---> add v1.0.2
 ### ......
 
 ### [实例APP下载，密码：4a2v](https://pan.baidu.com/s/1ADOTD8Fj_WJC07wCfGV0rQ)
@@ -98,6 +108,8 @@
 	public void playNext(String source) //切换播放源
 
 	public void seek(int secds) //seek进度（单位：秒）
+
+	public void setVolume(int percent) //设置音量（0~100）
 
 	public int getDuration() //获取时长
 
