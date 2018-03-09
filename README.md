@@ -74,10 +74,8 @@
 
 ### [实例APP下载，密码：4a2v](https://pan.baidu.com/s/1ADOTD8Fj_WJC07wCfGV0rQ)
 
-## 三、使用方式
-### 直接导入库：libmusic 即可
 
-## 四、API（v1.0.0）
+## 三、API（v1.0.0）
 	
 	public void setSource(String source) //设置音频源
 
@@ -92,6 +90,8 @@
 	public void resume() //恢复播放（对应于暂停）
 
 	public void stop() //停止播放，回收资源
+
+	public void setPlayCircle(boolean playCircle)//设置是否循环播放短音频
 
 	public void setPlayNext(boolean playNext) //设置播放下一个状态（true:调用stop后会重新播放音频源）
 
@@ -111,9 +111,9 @@
 
 	public void setOnPauseResumeListener(OnPauseResumeListener onPauseResumeListener) //暂停、恢复回调
 
-## 五、环境
-### 1、Android Studio 3.+
-### 2、Android 4.0+
-### 3、《中国网络广播》api数据
+## 四、环境
+#### 1、Android Studio 3.+
+#### 2、Android 4.0+
+#### 3、《中国网络广播》api数据
 
-### create by ywl5320
+### create By ywl5320
