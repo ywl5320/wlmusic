@@ -19,6 +19,7 @@ public class WlMusic {
     private String source;
     private TimeBean timeBean;
     private int duration = 0;
+    private int volume = 100;
     private boolean playNext = false;
     private boolean playCircle = false;
     private OnParparedListener onParparedListener;
@@ -90,6 +91,7 @@ public class WlMusic {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                setVolume(volume);
                 n_start();
             }
         }).start();
@@ -142,6 +144,20 @@ public class WlMusic {
     public int getDuration()
     {
         return duration;
+    }
+
+    public void setVolume(int percent)
+    {
+        if(percent <= 0)
+        {
+            percent = 0;
+        }
+        else if(percent >= 100)
+        {
+            percent = 100;
+        }
+        this.volume = percent;
+        n_volume(volume);
     }
 
     private void onCallParpared()
@@ -199,6 +215,7 @@ public class WlMusic {
     private native void n_resume();
     private native int n_stop();
     private native void n_seek(int secds);
+    private native void n_volume(int percent);
 
     static {
         System.loadLibrary("avutil-55");
