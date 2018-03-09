@@ -1,7 +1,6 @@
 package com.ywl5320.libmusic;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.ywl5320.bean.TimeBean;
 import com.ywl5320.listener.OnCompleteListener;
@@ -15,18 +14,19 @@ import com.ywl5320.listener.OnPauseResumeListener;
  * Created by ywl on 2018-1-7.
  */
 
-public class MyMusic {
+public class WlMusic {
 
-    private static String source;
-    private static TimeBean timeBean;
-    private static int duration = 0;
-    private static boolean playNext = false;
-    private static OnParparedListener onParparedListener;
-    private static OnErrorListener onErrorListener;
-    private static OnLoadListener onLoadListener;
-    private static OnInfoListener onInfoListener;
-    private static OnCompleteListener onCompleteListener;
-    private static OnPauseResumeListener onPauseResumeListener;
+    private String source;
+    private TimeBean timeBean;
+    private int duration = 0;
+    private boolean playNext = false;
+    private boolean playCircle = false;
+    private OnParparedListener onParparedListener;
+    private OnErrorListener onErrorListener;
+    private OnLoadListener onLoadListener;
+    private OnInfoListener onInfoListener;
+    private OnCompleteListener onCompleteListener;
+    private OnPauseResumeListener onPauseResumeListener;
 
     public void setSource(String source) {
         this.source = source;
@@ -77,8 +77,8 @@ public class MyMusic {
         stop();
     }
 
-    public void setPlayNext(boolean playNext) {
-        this.playNext = playNext;
+    public void setPlayCircle(boolean playCircle) {
+        this.playCircle = playCircle;
     }
 
     public void start()
@@ -189,8 +189,9 @@ public class MyMusic {
         }
     }
 
-
-
+    private boolean onCallPlayCircle() {
+        return playCircle;
+    }
 
     private native void n_parpared(String source);
     private native void n_start();
