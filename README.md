@@ -69,13 +69,13 @@
 ### 7、Activity动画
 ### 8、Activity、Dialog沉浸状态栏
 ### 9、网络接口返回数据再封装
-### 10、循环不间断播放短音频（时长小于90s) ---> v1.0.1
+### 10、循环不间断播放短音频（时长小于90s) ---> add v1.0.1
 ### ......
 
 ### [实例APP下载，密码：4a2v](https://pan.baidu.com/s/1ADOTD8Fj_WJC07wCfGV0rQ)
 
 
-## 三、API（v1.0.0）
+## 三、API（v1.0.1）
 	
 	public void setSource(String source) //设置音频源
 
