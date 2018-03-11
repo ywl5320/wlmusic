@@ -86,7 +86,7 @@
 ### [实例APP下载，密码：4a2v](https://pan.baidu.com/s/1ADOTD8Fj_WJC07wCfGV0rQ)
 
 
-## 三、API（v1.0.1）
+## 三、API（v1.0.3）
 	
 	public void setSource(String source) //设置音频源
 
