@@ -10,14 +10,14 @@
 	<dependency>
 	  <groupId>ywl.ywl5320</groupId>
 	  <artifactId>libmusic</artifactId>
-	  <version>1.0.2</version>
+	  <version>1.0.3</version>
 	  <type>pom</type>
 	</dependency>
 	
 
 ### Gradle:
 
-	compile 'ywl.ywl5320:libmusic:1.0.2'
+	compile 'ywl.ywl5320:libmusic:1.0.3'
 
 ### 配置NDK编译平台:
 
@@ -80,6 +80,7 @@
 ### 10、循环不间断播放短音频（时长小于90s) ---> add v1.0.1
 ### 11、可设置音量大小 ---> add v1.0.2
 ### 12、播放raw和assets ---> add v1.0.2
+### 13、声音分贝大小回调用于绘制波形图 ---> add v1.0.3
 ### ......
 
 ### [实例APP下载，密码：4a2v](https://pan.baidu.com/s/1ADOTD8Fj_WJC07wCfGV0rQ)
@@ -122,6 +123,8 @@
 	public void setOnCompleteListener(OnCompleteListener onCompleteListener) //播放完成回调
 
 	public void setOnPauseResumeListener(OnPauseResumeListener onPauseResumeListener) //暂停、恢复回调
+
+	public void setOnVolumeDBListener(OnVolumeDBListener onVolumeDBListener) //声音分贝大小回调
 
 ## 四、环境
 #### 1、Android Studio 3.+

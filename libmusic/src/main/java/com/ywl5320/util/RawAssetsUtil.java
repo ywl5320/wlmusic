@@ -14,7 +14,6 @@ import java.io.InputStream;
 public class RawAssetsUtil {
 
     /**
-     * 读取raw文件到sdcard中
      * @param context
      * @param rawId
      * @param audioName
@@ -77,7 +76,6 @@ public class RawAssetsUtil {
     }
 
     /**
-     * 读取assets文件
      * @param context
      * @param fileName
      * @return
