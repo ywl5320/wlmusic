@@ -13,8 +13,10 @@ import com.ywl5320.listener.OnInfoListener;
 import com.ywl5320.listener.OnLoadListener;
 import com.ywl5320.listener.OnParparedListener;
 import com.ywl5320.listener.OnPauseResumeListener;
+import com.ywl5320.listener.OnVolumeDBListener;
 import com.ywl5320.wlmusic.config.EventType;
 import com.ywl5320.wlmusic.beans.EventBusBean;
+import com.ywl5320.wlmusic.log.MyLog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -154,6 +156,13 @@ public class MusicService extends Service{
                     pauseResumtEventBean.setObject(pause);
                 }
                 EventBus.getDefault().post(pauseResumtEventBean);
+            }
+        });
+
+        wlMusic.setOnVolumeDBListener(new OnVolumeDBListener() {
+            @Override
+            public void onVolumeDB(int db) {
+                MyLog.d(db);
             }
         });
 

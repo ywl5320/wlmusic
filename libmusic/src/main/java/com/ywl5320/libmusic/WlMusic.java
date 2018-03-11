@@ -9,6 +9,7 @@ import com.ywl5320.listener.OnInfoListener;
 import com.ywl5320.listener.OnLoadListener;
 import com.ywl5320.listener.OnParparedListener;
 import com.ywl5320.listener.OnPauseResumeListener;
+import com.ywl5320.listener.OnVolumeDBListener;
 
 /**
  * Created by ywl on 2018-1-7.
@@ -28,6 +29,7 @@ public class WlMusic {
     private OnInfoListener onInfoListener;
     private OnCompleteListener onCompleteListener;
     private OnPauseResumeListener onPauseResumeListener;
+    private OnVolumeDBListener onVolumeDBListener;
 
     public void setSource(String source) {
         this.source = source;
@@ -55,6 +57,10 @@ public class WlMusic {
 
     public void setOnPauseResumeListener(OnPauseResumeListener onPauseResumeListener) {
         this.onPauseResumeListener = onPauseResumeListener;
+    }
+
+    public void setOnVolumeDBListener(OnVolumeDBListener onVolumeDBListener) {
+        this.onVolumeDBListener = onVolumeDBListener;
     }
 
     public void parpared()
@@ -207,6 +213,14 @@ public class WlMusic {
 
     private boolean onCallPlayCircle() {
         return playCircle;
+    }
+
+    private void onCallVolumeDB(int db)
+    {
+        if(onVolumeDBListener != null)
+        {
+            onVolumeDBListener.onVolumeDB(db);
+        }
     }
 
     private native void n_parpared(String source);
