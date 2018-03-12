@@ -23,6 +23,7 @@ public class WlMusic {
     private int volume = 100;
     private boolean playNext = false;
     private boolean playCircle = false;
+    private boolean isPlaying = false;
     private OnParparedListener onParparedListener;
     private OnErrorListener onErrorListener;
     private OnLoadListener onLoadListener;
@@ -63,6 +64,10 @@ public class WlMusic {
         this.onVolumeDBListener = onVolumeDBListener;
     }
 
+    public boolean isPlaying() {
+        return isPlaying;
+    }
+
     public void parpared()
     {
         if(TextUtils.isEmpty(source))
@@ -72,6 +77,7 @@ public class WlMusic {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                isPlaying = true;
                 n_parpared(source);
             }
         }).start();
@@ -97,6 +103,7 @@ public class WlMusic {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                isPlaying = true;
                 setVolume(volume);
                 n_start();
             }
@@ -106,6 +113,7 @@ public class WlMusic {
     public void pause()
     {
         n_pause();
+        isPlaying = false;
         if(onPauseResumeListener != null)
         {
             onPauseResumeListener.onPause(true);
@@ -115,6 +123,7 @@ public class WlMusic {
     public void resume()
     {
         n_resume();
+        isPlaying = true;
         if(onPauseResumeListener != null)
         {
             onPauseResumeListener.onPause(false);
@@ -128,6 +137,7 @@ public class WlMusic {
             @Override
             public void run() {
                 n_stop();
+                isPlaying = false;
                 if(playNext)
                 {
                     playNext = false;
