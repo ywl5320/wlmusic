@@ -66,6 +66,14 @@
     url = RawAssetsUtil.getAssetsFilePath(this, "goready.wav");
     url = RawAssetsUtil.getRawFilePath(this, R.raw.readygo, "readygo.wav");
     wlMusic.setSource(url);
+
+#### 4、设置速度1.5倍 （500~2000）
+
+    wlMusic.setPlaySpeed(1500);
+
+#### 5、设置左声道
+
+    wlMusic.setMute(MuteEnum.MUTE_LEFT);
 	
 
 ## 一、效果图
