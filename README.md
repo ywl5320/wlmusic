@@ -10,14 +10,14 @@
 	<dependency>
 	  <groupId>ywl.ywl5320</groupId>
 	  <artifactId>libmusic</artifactId>
-	  <version>1.0.3</version>
+	  <version>1.0.4</version>
 	  <type>pom</type>
 	</dependency>
 	
 
 ### Gradle:
 
-	compile 'ywl.ywl5320:libmusic:1.0.3'
+	compile 'ywl.ywl5320:libmusic:1.0.4'
 
 ### 配置NDK编译平台:
 
@@ -81,12 +81,13 @@
 ### 11、可设置音量大小 ---> add v1.0.2
 ### 12、播放raw和assets ---> add v1.0.2
 ### 13、声音分贝大小回调用于绘制波形图 ---> add v1.0.3
+### 13、添加isPlaying()方法 ---> add v1.0.4
 ### ......
 
 ### [实例APP下载，密码：4a2v](https://pan.baidu.com/s/1ADOTD8Fj_WJC07wCfGV0rQ)
 
 
-## 三、API（v1.0.3）
+## 三、API（v1.0.4）
 	
 	public void setSource(String source) //设置音频源
 
@@ -101,6 +102,8 @@
 	public void resume() //恢复播放（对应于暂停）
 
 	public void stop() //停止播放，回收资源
+
+	public boolean isPlaying(); //是否正在播放中
 
 	public void setPlayCircle(boolean playCircle)//设置是否循环播放短音频
 
