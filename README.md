@@ -43,9 +43,13 @@
 	WlMusic wlMusic = new WlMusic();
 	wlMusic.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
 	wlMusic.parpared();
+
 	//wlMusic.setPlayNext(false);//控制是否播放下一个
 	//wlMusic.setVolume(50);//音量控制（0~100）
 	//wlMusic.setPlayCircle(true); //循环播放短音频
+	//wlMusic.setPlaySpeed(1500); //设置速度1.5倍 （500~2000）
+	//wlMusic.setMute(MuteEnum.MUTE_LEFT); //设置左声道
+
 	wlMusic.setOnParparedListener(new OnParparedListener() {
 	    @Override
 	    public void onParpared() {
@@ -65,6 +69,7 @@
 	
 
 ## 一、效果图
+![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/sample.gif)
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/music.gif)<br/>
 
 ## 二、功能特色：
@@ -82,12 +87,14 @@
 ### 12、播放raw和assets ---> add v1.0.2
 ### 13、声音分贝大小回调用于绘制波形图 ---> add v1.0.3
 ### 13、添加isPlaying()方法 ---> add v1.0.4
+### 14、添加改变播放速率方法 ---> add v1.0.5
+### 15、添加设置声道方法 ---> add v1.0.5
 ### ......
 
 ### [实例APP下载，密码：4a2v](https://pan.baidu.com/s/1ADOTD8Fj_WJC07wCfGV0rQ)
 
 
-## 三、API（v1.0.4）
+## 三、API（v1.0.5）
 	
 	public void setSource(String source) //设置音频源
 
@@ -116,6 +123,10 @@
 	public void setVolume(int percent) //设置音量（0~100）
 
 	public int getDuration() //获取时长
+
+	public void setPlaySpeed(int speed) //设置播放速率（默认正常速率 1000 范围：500 ~ 2000 0.5x~2.0x）
+
+	public void setMute(MuteEnum mute) //设置播放声道 （MuteEnum.MUTE_LEFT,MuteEnum.MUTE_RIGHT,MuteEnum.MUTE_CENTER）
 
 	public void setOnErrorListener(OnErrorListener onErrorListener) //出错回调
 
