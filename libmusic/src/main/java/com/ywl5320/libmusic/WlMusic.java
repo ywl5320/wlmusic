@@ -3,6 +3,7 @@ package com.ywl5320.libmusic;
 import android.text.TextUtils;
 
 import com.ywl5320.bean.TimeBean;
+import com.ywl5320.libenum.MuteEnum;
 import com.ywl5320.listener.OnCompleteListener;
 import com.ywl5320.listener.OnErrorListener;
 import com.ywl5320.listener.OnInfoListener;
@@ -17,12 +18,15 @@ import com.ywl5320.listener.OnVolumeDBListener;
 
 public class WlMusic {
 
-    private String source;
-    private TimeBean timeBean;
-    private int duration = 0;
-    private int volume = 100;
-    private boolean playNext = false;
-    private boolean playCircle = false;
+    private static String source;
+    private static TimeBean timeBean;
+    private static int duration = 0;
+    private static int volume = 100;//(0~100)
+    private static int playSpeed = 1000;//default 1000 normal (500~2000 -> 0.5x~2.0x)
+    private static MuteEnum mute = MuteEnum.MUTE_CENTER;//0:left 1:right 2:center
+    private static boolean playNext = false;
+    private static boolean playCircle = false;
+    private static boolean isPlaying = false;
     private OnParparedListener onParparedListener;
     private OnErrorListener onErrorListener;
     private OnLoadListener onLoadListener;
@@ -31,9 +35,19 @@ public class WlMusic {
     private OnPauseResumeListener onPauseResumeListener;
     private OnVolumeDBListener onVolumeDBListener;
 
+    public WlMusic()
+    {
+    }
+
     public void setSource(String source) {
         this.source = source;
     }
+
+    public String getSource()
+    {
+        return source;
+    }
+
 
     public void setOnParparedListener(OnParparedListener onParparedListener) {
         this.onParparedListener = onParparedListener;
@@ -63,6 +77,10 @@ public class WlMusic {
         this.onVolumeDBListener = onVolumeDBListener;
     }
 
+    public boolean isPlaying() {
+        return isPlaying;
+    }
+
     public void parpared()
     {
         if(TextUtils.isEmpty(source))
@@ -72,6 +90,7 @@ public class WlMusic {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                isPlaying = true;
                 n_parpared(source);
             }
         }).start();
@@ -88,6 +107,11 @@ public class WlMusic {
         this.playCircle = playCircle;
     }
 
+    public boolean isPlayCircle()
+    {
+        return playCircle;
+    }
+
     public void start()
     {
         if(timeBean == null)
@@ -97,7 +121,10 @@ public class WlMusic {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                isPlaying = true;
                 setVolume(volume);
+                setPlaySpeed(playSpeed);
+                setMute(mute);
                 n_start();
             }
         }).start();
@@ -106,6 +133,7 @@ public class WlMusic {
     public void pause()
     {
         n_pause();
+        isPlaying = false;
         if(onPauseResumeListener != null)
         {
             onPauseResumeListener.onPause(true);
@@ -115,6 +143,7 @@ public class WlMusic {
     public void resume()
     {
         n_resume();
+        isPlaying = true;
         if(onPauseResumeListener != null)
         {
             onPauseResumeListener.onPause(false);
@@ -128,6 +157,7 @@ public class WlMusic {
             @Override
             public void run() {
                 n_stop();
+                isPlaying = false;
                 if(playNext)
                 {
                     playNext = false;
@@ -164,6 +194,33 @@ public class WlMusic {
         }
         this.volume = percent;
         n_volume(volume);
+    }
+
+    public int getVolume()
+    {
+        return volume;
+    }
+
+    public void setPlaySpeed(int speed)
+    {
+        this.playSpeed = speed;
+        n_playspeed(playSpeed);
+    }
+
+    public int getPlaySpeed()
+    {
+        return playSpeed;
+    }
+
+    public void setMute(MuteEnum mute)
+    {
+        this.mute = mute;
+        n_mute(mute.getValue());
+    }
+
+    public MuteEnum getMute()
+    {
+        return mute;
     }
 
     private void onCallParpared()
@@ -230,6 +287,8 @@ public class WlMusic {
     private native int n_stop();
     private native void n_seek(int secds);
     private native void n_volume(int percent);
+    private native void n_playspeed(int speed);
+    private native void n_mute(int mute);
 
     static {
         System.loadLibrary("avutil-55");

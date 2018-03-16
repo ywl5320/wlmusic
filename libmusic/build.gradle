@@ -6,8 +6,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 6
+        versionName "1.0.5"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -28,4 +28,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:0.5'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
 }
+
+
 
