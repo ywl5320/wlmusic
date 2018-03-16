@@ -77,7 +77,9 @@
 	
 
 ## 一、效果图
+1、
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/sample.gif)
+2、
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/music.gif)<br/>
 
 ## 二、功能特色：
