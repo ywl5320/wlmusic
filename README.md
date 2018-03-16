@@ -10,14 +10,14 @@
 	<dependency>
 	  <groupId>ywl.ywl5320</groupId>
 	  <artifactId>libmusic</artifactId>
-	  <version>1.0.4</version>
+	  <version>1.0.5</version>
 	  <type>pom</type>
 	</dependency>
 	
 
 ### Gradle:
 
-	compile 'ywl.ywl5320:libmusic:1.0.4'
+	compile 'ywl.ywl5320:libmusic:1.0.5'
 
 ### 配置NDK编译平台:
 
