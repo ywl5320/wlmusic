@@ -1,5 +1,5 @@
 # wlmusic
-基于FFmpeg的音频播放APP，仿网易云音乐播放UI，可移植到自己的音频APP中。
+基于FFmpeg的音频播放SDK，可循环不间断播放短音频，播放raw和assets音频文件，可独立设置音量大小，可实时现在音量分贝大小（用于绘制波形图），可改变播放速率，可设置播放声道等。
 
 ## [我的视频课程：《FFmpeg打造Android万能音频播放器》](https://edu.csdn.net/course/detail/6842)
 
