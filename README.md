@@ -76,7 +76,7 @@
     wlMusic.setMute(MuteEnum.MUTE_LEFT);
 	
 
-## 一、效果图
+## 一、效果图（对应设置启动页：MainActivity 或者 SplashActivity）
 1、
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/sample.gif)
 2、
