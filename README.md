@@ -5,19 +5,18 @@
 
 ## Usage:
 
+### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.0.7) ](https://bintray.com/ywl5320/maven/wlmusic/1.0.7/link)
+
+	compile 'ywl.ywl5320:libmusic:1.0.7'
+
 ### Maven:
 
 	<dependency>
 	  <groupId>ywl.ywl5320</groupId>
 	  <artifactId>libmusic</artifactId>
-	  <version>1.0.6</version>
+	  <version>1.0.7</version>
 	  <type>pom</type>
 	</dependency>
-	
-
-### Gradle:
-
-	compile 'ywl.ywl5320:libmusic:1.0.6'
 
 ### 配置NDK编译平台:
 
