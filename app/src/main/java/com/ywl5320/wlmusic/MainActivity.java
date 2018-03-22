@@ -1,10 +1,10 @@
 package com.ywl5320.wlmusic;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -19,7 +19,7 @@ import com.ywl5320.listener.OnCompleteListener;
 import com.ywl5320.listener.OnErrorListener;
 import com.ywl5320.listener.OnInfoListener;
 import com.ywl5320.listener.OnLoadListener;
-import com.ywl5320.listener.OnParparedListener;
+import com.ywl5320.listener.OnPreparedListener;
 import com.ywl5320.listener.OnVolumeDBListener;
 import com.ywl5320.util.WlTimeUtil;
 import com.ywl5320.wlmusic.log.MyLog;
@@ -28,13 +28,16 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView tvTime;
     private TextView tvTime2;
-    private WlMusic wlMusic;
+    private TextView tvStyle;
+    private WlMusic myMusic;
     private SeekBar seekBar;
     private SeekBar seekBar2;
     private CheckBox checkBox;
     private int position = 0;
     private boolean isSeek = false;
 
+    private String spStyle = "正常播放1.0x";
+    private String muStyle = "立体声";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +48,19 @@ public class MainActivity extends AppCompatActivity {
         seekBar = findViewById(R.id.seek_bar);
         seekBar2 = findViewById(R.id.seek_bar2);
         checkBox = findViewById(R.id.checkbox);
+        tvStyle = findViewById(R.id.tv_style);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.d("ywl5320", isChecked + "");
-                wlMusic.setPlayCircle(isChecked);
+                myMusic.setPlayCircle(isChecked);
             }
         });
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                position = wlMusic.getDuration() * progress / 100;
+                position = myMusic.getDuration() * progress / 100;
             }
 
             @Override
@@ -67,14 +71,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 MyLog.d("position:" + position);
-                wlMusic.seek(position);
+                myMusic.seek(position);
             }
         });
 
         seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                wlMusic.setVolume(seekBar.getProgress());
+                myMusic.setVolume(seekBar.getProgress());
                 tvTime2.setText("音量：" + progress + "%");
             }
 
@@ -87,38 +91,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        wlMusic = new WlMusic();
-        wlMusic.setPlaySpeed(1500);
-        wlMusic.setPlayCircle(true);
-        wlMusic.setVolume(60);
-        tvTime2.setText("音量：" + wlMusic.getVolume() + "%");
-        seekBar2.setProgress(wlMusic.getVolume());
-        checkBox.setChecked(wlMusic.isPlayCircle());
+        myMusic = new WlMusic();
+        myMusic.setPlaySpeed(1);
+        myMusic.setPlayCircle(true);
+        myMusic.setVolume(65);
+        myMusic.setPlaySpeed(1.0f);
+        myMusic.setPlayPitch(1.0f);
+        tvTime2.setText("音量：" + myMusic.getVolume() + "%");
+        seekBar2.setProgress(myMusic.getVolume());
+        checkBox.setChecked(myMusic.isPlayCircle());
+        setStyle();
 
-
-        wlMusic.setOnParparedListener(new OnParparedListener() {
+        myMusic.setOnPreparedListener(new OnPreparedListener() {
             @Override
             public void onParpared() {
                 MyLog.d("onparpared");
-                wlMusic.start();
+                myMusic.start();
             }
         });
 
-        wlMusic.setOnErrorListener(new OnErrorListener() {
+        myMusic.setOnErrorListener(new OnErrorListener() {
             @Override
             public void onError(int code, String msg) {
                 MyLog.d("code :" + code + ", msg :" + msg);
             }
         });
 
-        wlMusic.setOnLoadListener(new OnLoadListener() {
+        myMusic.setOnLoadListener(new OnLoadListener() {
             @Override
             public void onLoad(boolean load) {
                 MyLog.d("load --> " + load);
             }
         });
 
-        wlMusic.setOnInfoListener(new OnInfoListener() {
+        myMusic.setOnInfoListener(new OnInfoListener() {
             @Override
             public void onInfo(TimeBean timeBean) {
                 isSeek = false;
@@ -130,14 +136,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        wlMusic.setOnCompleteListener(new OnCompleteListener() {
+        myMusic.setOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete() {
                 MyLog.d("complete");
             }
         });
 
-        wlMusic.setOnVolumeDBListener(new OnVolumeDBListener() {
+        myMusic.setOnVolumeDBListener(new OnVolumeDBListener() {
             @Override
             public void onVolumeDB(int db) {
 //                System.out.println("db is " + db);
@@ -165,6 +171,9 @@ public class MainActivity extends AppCompatActivity {
                         seekBar.setProgress(timeBean.getCurrSecs() * 100 / timeBean.getTotalSecs());
                     tvTime.setText("时间：" + WlTimeUtil.secdsToDateFormat(timeBean.getCurrSecs(), timeBean.getTotalSecs()) + "/" + WlTimeUtil.secdsToDateFormat(timeBean.getTotalSecs(), timeBean.getTotalSecs()));
                     break;
+                case 2:
+                    int db = (int) msg.obj;
+                    break;
                 default:
                     break;
             }
@@ -175,53 +184,104 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void pause(View view) {
-        wlMusic.pause();
+        myMusic.pause();
     }
 
     public void resume(View view) {
-        wlMusic.resume();
+        myMusic.resume();
     }
 
     public void stop(View view) {
-        wlMusic.stop();
+        myMusic.stop();
     }
 
     public void start(View view) {
-        wlMusic.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
-        wlMusic.parpared();
+        myMusic.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
+        myMusic.parpared();
     }
 
     public void change(View view) {
-        wlMusic.playNext("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
+        myMusic.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
+        myMusic.playNext("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
     }
 
     public void fast(View view) {
-        wlMusic.setPlaySpeed(1500);
+        myMusic.setPlaySpeed(1.5f);
+        spStyle = "变速不变调1.5x";
+        setStyle();
     }
 
     public void slow(View view) {
-        wlMusic.setPlaySpeed(500);
+        myMusic.setPlaySpeed(0.5f);
+        spStyle = "变速不变调0.5x";
+        setStyle();
     }
 
     public void normal(View view) {
-        wlMusic.setPlaySpeed(1000);
+        myMusic.setPlaySpeed(1f);
+        spStyle = "变速不变调1.0x";
+        setStyle();
     }
 
     public void left(View view) {
-        wlMusic.setMute(MuteEnum.MUTE_LEFT);
+        myMusic.setMute(MuteEnum.MUTE_LEFT);
+        muStyle = "左声道";
+        setStyle();
     }
 
     public void right(View view) {
-        wlMusic.setMute(MuteEnum.MUTE_RIGHT);
+        myMusic.setMute(MuteEnum.MUTE_RIGHT);
+        muStyle = "右声道";
+        setStyle();
     }
 
     public void center(View view) {
-        wlMusic.setMute(MuteEnum.MUTE_CENTER);
+        myMusic.setMute(MuteEnum.MUTE_CENTER);
+        muStyle = "立体声";
+        setStyle();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        wlMusic.stop();
+    public void fpitch(View view) {
+        myMusic.setPlayPitch(1.5f);
+        spStyle = "变调不变速1.5x";
+        setStyle();
+    }
+
+    public void spitch(View view) {
+        myMusic.setPlayPitch(0.5f);
+        spStyle = "变调不变速0.5x";
+        setStyle();
+    }
+
+    public void npitch(View view) {
+        myMusic.setPlayPitch(1f);
+        spStyle = "变调不变速1.0x";
+        setStyle();
+    }
+
+    public void sffast(View view) {
+        myMusic.setPlaySpeed(1.5f);
+        myMusic.setPlayPitch(1.5f);
+        spStyle = "变调又变速1.5x";
+        setStyle();
+    }
+
+    public void sfslow(View view) {
+        myMusic.setPlaySpeed(0.5f);
+        myMusic.setPlayPitch(0.5f);
+        spStyle = "变调又变速0.5x";
+        setStyle();
+    }
+
+    public void sfnormal(View view) {
+        myMusic.setPlayPitch(1);
+        myMusic.setPlaySpeed(1);
+        spStyle = "变调又变速1.0x";
+        setStyle();
+    }
+
+    private void setStyle()
+    {
+        tvStyle.setText(spStyle + " -- " + muStyle);
     }
 }

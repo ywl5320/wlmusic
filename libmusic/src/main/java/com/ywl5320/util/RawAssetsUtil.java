@@ -14,6 +14,7 @@ import java.io.InputStream;
 public class RawAssetsUtil {
 
     /**
+     * read file from raw
      * @param context
      * @param rawId
      * @param audioName
@@ -76,6 +77,7 @@ public class RawAssetsUtil {
     }
 
     /**
+     * read file from assets
      * @param context
      * @param fileName
      * @return

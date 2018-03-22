@@ -6,6 +6,12 @@ package com.ywl5320.util;
 
 public class WlTimeUtil {
 
+    /**
+     * format times
+     * @param secds
+     * @param totalsecds
+     * @return
+     */
     public static String secdsToDateFormat(int secds, int totalsecds) {
         long hours = secds / (60 * 60);
         long minutes = (secds % (60 * 60)) / (60);

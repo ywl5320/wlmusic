@@ -1,5 +1,5 @@
 # wlmusic
-基于FFmpeg的音频播放SDK，可循环不间断播放短音频，播放raw和assets音频文件，可独立设置音量大小，可实时现在音量分贝大小（用于绘制波形图），可改变播放速率，可设置播放声道等。
+基于FFmpeg的音频播放SDK，可循环不间断播放短音频，播放raw和assets音频文件，可独立设置音量大小，可实时现在音量分贝大小（用于绘制波形图），可改变音频播放速度和音调（变速不变调、变调不变速、变速又变调），可设置播放声道等。
 
 ## [我的视频课程：《FFmpeg打造Android万能音频播放器》](https://edu.csdn.net/course/detail/6842)
 
@@ -10,14 +10,14 @@
 	<dependency>
 	  <groupId>ywl.ywl5320</groupId>
 	  <artifactId>libmusic</artifactId>
-	  <version>1.0.5</version>
+	  <version>1.0.6</version>
 	  <type>pom</type>
 	</dependency>
 	
 
 ### Gradle:
 
-	compile 'ywl.ywl5320:libmusic:1.0.5'
+	compile 'ywl.ywl5320:libmusic:1.0.6'
 
 ### 配置NDK编译平台:
 
@@ -99,6 +99,8 @@
 ### 14、添加isPlaying()方法 ---> add v1.0.4
 ### 15、添加改变播放速率方法 ---> add v1.0.5
 ### 16、添加设置声道方法 ---> add v1.0.5
+### 17、添加设置音频音调方法 ---> add v1.0.6
+### 18、更新设置播放速度方法 ---> add v1.0.6
 ### ......
 
 ### [实例APP下载，密码：4a2v](https://pan.baidu.com/s/1ADOTD8Fj_WJC07wCfGV0rQ)
@@ -110,7 +112,7 @@
 
 	public void parpared() //准备播放
 
-	public void setOnParparedListener(OnParparedListener onParparedListener) //准备成功回调
+	public void setOnPreparedListener(OnPreparedListener onPreparedListener) //准备成功回调
 
 	public void start() //开始播放
 
@@ -134,7 +136,9 @@
 
 	public int getDuration() //获取时长
 
-	public void setPlaySpeed(int speed) //设置播放速率（默认正常速率 1000 范围：500 ~ 2000 0.5x~2.0x）
+	public void setPlaySpeed(int speed) //设置播放速度（默认正常速度 1.0 范围：0.25x ~ 4.0x）
+
+	public void setPlayPitch(float pitch) //设置音频音调（默认正常音调 1.0 范围：0.25x ~ 4.0x）
 
 	public void setMute(MuteEnum mute) //设置播放声道 （MuteEnum.MUTE_LEFT,MuteEnum.MUTE_RIGHT,MuteEnum.MUTE_CENTER）
 
@@ -149,6 +153,7 @@
 	public void setOnPauseResumeListener(OnPauseResumeListener onPauseResumeListener) //暂停、恢复回调
 
 	public void setOnVolumeDBListener(OnVolumeDBListener onVolumeDBListener) //声音分贝大小回调
+
 
 ## 四、环境
 #### 1、Android Studio 3.+

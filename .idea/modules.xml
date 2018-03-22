@@ -4,7 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/libmusic/libmusic.iml" filepath="$PROJECT_DIR$/libmusic/libmusic.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/wlmusic.iml" filepath="$PROJECT_DIR$/.idea/wlmusic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wlmusic.iml" filepath="$PROJECT_DIR$/wlmusic.iml" />
+      <module fileurl="file://E:\github\wl\wlmusic\.idea\wlmusic.iml" filepath="E:\github\wl\wlmusic\.idea\wlmusic.iml" />
     </modules>
   </component>
 </project>
