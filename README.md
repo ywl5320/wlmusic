@@ -160,7 +160,7 @@
 
 ## 四、环境
 #### 1、Android Studio 3.+
-#### 2、Android 4.0+
+#### 2、Android 4.1+
 #### 3、《中国网络广播》api数据
 
 ### create By ywl5320
