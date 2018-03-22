@@ -42,18 +42,19 @@
 
 	WlMusic wlMusic = new WlMusic();
 	wlMusic.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
-	wlMusic.parpared();
 
-	//wlMusic.setPlayNext(false);//控制是否播放下一个
-	//wlMusic.setVolume(50);//音量控制（0~100）
-	//wlMusic.setPlayCircle(true); //循环播放短音频
-	//wlMusic.setPlaySpeed(1500); //设置速度1.5倍 （500~2000）
-	//wlMusic.setMute(MuteEnum.MUTE_LEFT); //设置左声道
+    myMusic = new WlMusic();
+    myMusic.setPlayCircle(true); //设置不间断循环播放音频
+    myMusic.setVolume(65); //设置音量 65%
+    myMusic.setPlaySpeed(1.0f); //设置播放速度 (1.0正常) 范围：0.25---4.0f
+    myMusic.setPlayPitch(1.0f); //设置播放速度 (1.0正常) 范围：0.25---4.0f
+    myMusic.setMute(MuteEnum.MUTE_CENTER); //设置立体声（左声道、右声道和立体声）
+    wlMusic.parpared();准备开始
 
-	wlMusic.setOnParparedListener(new OnParparedListener() {
+	wlMusic.setOnPreparedListener(new OnPreparedListener() {
 	    @Override
-	    public void onParpared() {
-		wlMusic.start();
+	    public void onPrepared() {
+		wlMusic.start(); //准备完成开始播放
 	    }
 	});
 
@@ -67,11 +68,15 @@
     url = RawAssetsUtil.getRawFilePath(this, R.raw.readygo, "readygo.wav");
     wlMusic.setSource(url);
 
-#### 4、设置速度1.5倍 （500~2000）
+#### 4、设置速度1.5倍 （0.25~4.0f）
 
-    wlMusic.setPlaySpeed(1500);
+    wlMusic.setPlaySpeed(1.5f);
 
-#### 5、设置左声道
+#### 5、设置音调1.5倍 （0.25~4.0f）
+
+    wlMusic.setPlayPitch(1.5f);
+
+#### 6、设置左声道
 
     wlMusic.setMute(MuteEnum.MUTE_LEFT);
 	

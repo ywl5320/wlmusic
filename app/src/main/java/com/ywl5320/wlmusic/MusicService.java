@@ -73,8 +73,8 @@ public class MusicService extends Service{
         wlMusic.setVolume(100);
         wlMusic.setOnPreparedListener(new OnPreparedListener() {
             @Override
-            public void onParpared() {
-                MyLog.e("onParpared.................");
+            public void onPrepared() {
+                MyLog.e("onPrepared.................");
                 wlMusic.start();
             }
         });

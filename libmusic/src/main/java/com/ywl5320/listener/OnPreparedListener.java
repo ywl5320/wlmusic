@@ -7,6 +7,6 @@ package com.ywl5320.listener;
 public interface OnPreparedListener {
 
 
-    void onParpared();
+    void onPrepared();
 
 }

@@ -92,11 +92,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         myMusic = new WlMusic();
-        myMusic.setPlaySpeed(1);
-        myMusic.setPlayCircle(true);
-        myMusic.setVolume(65);
-        myMusic.setPlaySpeed(1.0f);
-        myMusic.setPlayPitch(1.0f);
+        myMusic.setPlayCircle(true); //设置不间断循环播放音频
+        myMusic.setVolume(65); //设置音量 65%
+        myMusic.setPlaySpeed(1.0f); //设置播放速度 (1.0正常) 范围：0.25---4.0f
+        myMusic.setPlayPitch(1.0f); //设置播放速度 (1.0正常) 范围：0.25---4.0f
+        myMusic.setMute(MuteEnum.MUTE_CENTER); //设置立体声（左声道、右声道和立体声）
+
         tvTime2.setText("音量：" + myMusic.getVolume() + "%");
         seekBar2.setProgress(myMusic.getVolume());
         checkBox.setChecked(myMusic.isPlayCircle());
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         myMusic.setOnPreparedListener(new OnPreparedListener() {
             @Override
-            public void onParpared() {
+            public void onPrepared() {
                 MyLog.d("onparpared");
                 myMusic.start();
             }

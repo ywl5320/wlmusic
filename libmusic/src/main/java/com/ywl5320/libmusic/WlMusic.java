@@ -292,7 +292,7 @@ public class WlMusic {
     {
         if(onPreparedListener != null)
         {
-            onPreparedListener.onParpared();
+            onPreparedListener.onPrepared();
         }
     }
 
