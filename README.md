@@ -3,18 +3,21 @@
 
 ## [我的视频课程：《FFmpeg打造Android万能音频播放器》](https://edu.csdn.net/course/detail/6842)
 
+## Update v1.0.8 优化cpu使用率 测试设备：红米2A手机（性能算很差的了）
+![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cpuuse.gif)
+
 ## Usage:
 
 ### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.0.7) ](https://bintray.com/ywl5320/maven/wlmusic/1.0.7/link)
 
-	compile 'ywl.ywl5320:libmusic:1.0.7'
+	compile 'ywl.ywl5320:libmusic:1.0.8'
 
 ### Maven:
 
 	<dependency>
 	  <groupId>ywl.ywl5320</groupId>
 	  <artifactId>libmusic</artifactId>
-	  <version>1.0.7</version>
+	  <version>1.0.8</version>
 	  <type>pom</type>
 	</dependency>
 
@@ -108,7 +111,7 @@
 ### [实例APP下载，密码：4a2v](https://pan.baidu.com/s/1ADOTD8Fj_WJC07wCfGV0rQ)
 
 
-## 三、API（v1.0.5）
+## 三、API（v1.0.8）
 	
 	public void setSource(String source) //设置音频源
 
