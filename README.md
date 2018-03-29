@@ -8,7 +8,7 @@
 
 ## Usage:
 
-### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.0.7) ](https://bintray.com/ywl5320/maven/wlmusic/1.0.7/link)
+### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.0.8) ](https://bintray.com/ywl5320/maven/wlmusic/1.0.8/link)
 
 	compile 'ywl.ywl5320:libmusic:1.0.8'
 
