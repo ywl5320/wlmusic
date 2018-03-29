@@ -3,8 +3,9 @@
 
 ## [我的视频课程：《FFmpeg打造Android万能音频播放器》](https://edu.csdn.net/course/detail/6842)
 
-## Update v1.0.8 优化cpu使用率 测试设备：红米2A手机（性能算很差的了）
-![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cpuuse.gif)
+## Update v1.0.8 优化cpu使用率和内存大小 测试设备：红米2A手机（性能算很差的了）
+![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cpuuse.gif)/n
+![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/memeory.gif)
 
 ## Usage:
 
