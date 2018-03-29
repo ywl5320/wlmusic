@@ -1,12 +1,20 @@
 package com.ywl5320.bean;
 
 /**
+ * timebean
  * Created by ywl on 2018/1/9.
  */
 
 public class TimeBean {
 
+    /**
+     * now playing times
+     */
     private int currSecs;
+
+    /**
+     * total times(only can get duration)
+     */
     private int totalSecs;
 
     public int getCurrSecs() {

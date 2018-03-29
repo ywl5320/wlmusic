@@ -11,11 +11,11 @@ import com.ywl5320.listener.OnCompleteListener;
 import com.ywl5320.listener.OnErrorListener;
 import com.ywl5320.listener.OnInfoListener;
 import com.ywl5320.listener.OnLoadListener;
-import com.ywl5320.listener.OnParparedListener;
 import com.ywl5320.listener.OnPauseResumeListener;
+import com.ywl5320.listener.OnPreparedListener;
 import com.ywl5320.listener.OnVolumeDBListener;
-import com.ywl5320.wlmusic.config.EventType;
 import com.ywl5320.wlmusic.beans.EventBusBean;
+import com.ywl5320.wlmusic.config.EventType;
 import com.ywl5320.wlmusic.log.MyLog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -69,10 +69,12 @@ public class MusicService extends Service{
         url = intent.getStringExtra("url");
         wlMusic = new WlMusic();
         wlMusic.setSource(url);
-
-        wlMusic.setOnParparedListener(new OnParparedListener() {
+        wlMusic.setPlayCircle(true);
+        wlMusic.setVolume(100);
+        wlMusic.setOnPreparedListener(new OnPreparedListener() {
             @Override
-            public void onParpared() {
+            public void onPrepared() {
+                MyLog.e("onPrepared.................");
                 wlMusic.start();
             }
         });
@@ -162,7 +164,7 @@ public class MusicService extends Service{
         wlMusic.setOnVolumeDBListener(new OnVolumeDBListener() {
             @Override
             public void onVolumeDB(int db) {
-                MyLog.d(db);
+//                MyLog.d(db);
             }
         });
 
