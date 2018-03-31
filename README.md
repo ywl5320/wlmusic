@@ -59,6 +59,25 @@
 	    }
 	});
 
+	//seek时间
+	seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            position = myMusic.getDuration() * progress / 100;
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+            myMusic.seek(position, false, false);
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            myMusic.seek(position, true, true);
+        }
+    });
+
+
 #### 2、循环不停顿播放短音频（音频不限时长）
 
 	wlMusic.setPlayCircle(true);
