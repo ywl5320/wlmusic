@@ -177,8 +177,11 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myMusic.stop();
+    }
 
     public void pause(View view) {
         myMusic.pause();
