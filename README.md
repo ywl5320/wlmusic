@@ -43,7 +43,7 @@
 ### 接入代码:
 #### 1、播放一般音乐
 
-	WlMusic wlMusic = new WlMusic();
+	WlMusic wlMusic = WlMusic.getInstance();
 	wlMusic.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3"); //设置音频源
     myMusic.setPlayCircle(true); //设置不间断循环播放音频
     myMusic.setVolume(65); //设置音量 65%
