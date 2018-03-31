@@ -68,12 +68,12 @@
 
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
-            myMusic.seek(position, false, false);
+            myMusic.seek(position, false, false);// 表示在seeking中，此时不回掉时间
         }
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            myMusic.seek(position, true, true);
+            myMusic.seek(position, true, true);//表示seek已经完成，然后才回调时间，避免自己控制时间逻辑和时间显示不稳定问题。
         }
     });
 
