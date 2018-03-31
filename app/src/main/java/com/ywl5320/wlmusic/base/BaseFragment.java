@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.ywl5320.wlmusic.R;
 import com.ywl5320.wlmusic.util.CommonUtil;
 

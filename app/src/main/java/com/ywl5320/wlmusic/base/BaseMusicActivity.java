@@ -13,14 +13,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ywl5320.bean.TimeBean;
-import com.ywl5320.wlmusic.dialog.HistoryDialog;
 import com.ywl5320.wlmusic.MyApplication;
 import com.ywl5320.wlmusic.R;
 import com.ywl5320.wlmusic.activity.PlayActivity;
 import com.ywl5320.wlmusic.beans.ChannelSchedulBean;
+import com.ywl5320.wlmusic.beans.EventBusBean;
 import com.ywl5320.wlmusic.beans.PlayBean;
 import com.ywl5320.wlmusic.config.EventType;
-import com.ywl5320.wlmusic.beans.EventBusBean;
+import com.ywl5320.wlmusic.dialog.HistoryDialog;
 import com.ywl5320.wlmusic.log.MyLog;
 
 import org.greenrobot.eventbus.EventBus;

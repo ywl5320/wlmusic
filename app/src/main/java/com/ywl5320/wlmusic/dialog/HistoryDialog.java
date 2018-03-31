@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -15,21 +14,14 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.ywl5320.wlmusic.R;
-import com.ywl5320.wlmusic.activity.HomeActivity;
-import com.ywl5320.wlmusic.activity.PlayActivity;
 import com.ywl5320.wlmusic.adapter.HistoryAdapter;
-import com.ywl5320.wlmusic.adapter.RadioAdapter;
-import com.ywl5320.wlmusic.adapter.WapHeaderAndFooterAdapter;
 import com.ywl5320.wlmusic.base.BaseDialog;
 import com.ywl5320.wlmusic.beans.ChannelSchedulBean;
-import com.ywl5320.wlmusic.beans.LiveChannelBean;
-import com.ywl5320.wlmusic.beans.PlaceBean;
 import com.ywl5320.wlmusic.http.serviceapi.RadioApi;
 import com.ywl5320.wlmusic.http.subscribers.HttpSubscriber;
 import com.ywl5320.wlmusic.http.subscribers.SubscriberOnListener;
-import com.ywl5320.wlmusic.log.*;
+import com.ywl5320.wlmusic.log.MyLog;
 import com.ywl5320.wlmusic.util.CommonUtil;
 
 import java.util.ArrayList;
@@ -42,7 +34,7 @@ import butterknife.OnClick;
  * Created by ywl on 2018-1-13.
  */
 
-public class HistoryDialog extends BaseDialog{
+public class HistoryDialog extends BaseDialog {
 
     @BindView(R.id.ly_content)
     LinearLayout lycontent;

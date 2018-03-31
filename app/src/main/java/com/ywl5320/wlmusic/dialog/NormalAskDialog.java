@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.ywl5320.wlmusic.R;
 import com.ywl5320.wlmusic.base.BaseDialog;
 
-import org.greenrobot.eventbus.EventBus;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -52,7 +50,7 @@ public class NormalAskDialog extends BaseDialog{
             getWindow().setLayout(width * 3 / 4, WindowManager.LayoutParams.WRAP_CONTENT);
         }
         setCanceledOnTouchOutside(false);
-        this.setOnKeyListener(new OnKeyListener() {
+        this.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK  && event.getAction() == KeyEvent.ACTION_UP)

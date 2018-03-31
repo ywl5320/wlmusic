@@ -21,45 +21,55 @@ public class WlMusic {
     /**
      * the path of file or stream
      */
-    private static String source;
+    private String source;
     /**
      * playing time and totaltime bean
      */
-    private static TimeBean timeBean;
+    private TimeBean timeBean;
     /**
      * total times
      */
-    private static int duration = 0;
+    private int duration = 0;
     /**
      * volume percent (0-100)
      */
-    private static int volume = 100;
+    private int volume = 100;
     /**
      * the speed of playing without change pitch
      * default 1 normal (0.25~4 -> 0.25x~4.0x)
      */
-    private static float playSpeed = 1f;
+    private float playSpeed = 1f;
     /**
      * the pitch of playing without change speed
      * default 1 normal (0.25~4 -> 0.25x~4.0x)
      */
-    private static float playPitch = 1f;
+    private float playPitch = 1f;
     /**
      * this mutex of sound
      */
-    private static MuteEnum mute = MuteEnum.MUTE_CENTER;//0:left 1:right 2:center
+    private MuteEnum mute = MuteEnum.MUTE_CENTER;//0:left 1:right 2:center
     /**
      * will play next
      */
-    private static boolean playNext = false;
+    private boolean playNext = false;
     /**
      * will play still
      */
-    private static boolean playCircle = false;
+    private boolean playCircle = false;
     /**
      * play status
      */
-    private static boolean isPlaying = false;
+    private boolean isPlaying = false;
+    /**
+     * seek status
+     */
+    private boolean isSeek = false;
+    /**
+     * duration seeking showtime callback
+     * true:show
+     * false:not show
+     */
+    private boolean seekingShowTime = true;
     /**
      * prepared callback
      */
@@ -89,7 +99,18 @@ public class WlMusic {
      */
     private OnVolumeDBListener onVolumeDBListener;
 
-    public WlMusic(){}
+    public static WlMusic instance = null;
+
+    private WlMusic(){}
+
+    public static WlMusic getInstance()
+    {
+        if(instance == null)
+        {
+            instance = new WlMusic();
+        }
+        return instance;
+    }
 
     public void setSource(String source) {
         this.source = source;
@@ -133,19 +154,15 @@ public class WlMusic {
         return isPlaying;
     }
 
-    public void parpared()
+
+    public void prePared()
     {
         if(TextUtils.isEmpty(source))
         {
             return;
         }
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                isPlaying = true;
-                n_parpared(source);
-            }
-        }).start();
+        isPlaying = true;
+        n_prepared(source);
     }
 
     public void playNext(String source)
@@ -170,17 +187,12 @@ public class WlMusic {
         {
             timeBean = new TimeBean();
         }
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                isPlaying = true;
-                setVolume(volume);
-                setPlaySpeed(playSpeed);
-                setPlayPitch(playPitch);
-                setMute(mute);
-                n_start();
-            }
-        }).start();
+        isPlaying = true;
+        setVolume(volume);
+        setPlaySpeed(playSpeed);
+        setPlayPitch(playPitch);
+        setMute(mute);
+        n_start();
     }
 
     public void pause()
@@ -206,28 +218,22 @@ public class WlMusic {
     public void stop()
     {
         timeBean = null;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                n_stop();
-                isPlaying = false;
-                if(playNext)
-                {
-                    playNext = false;
-                    parpared();
-                }
-            }
-        }).start();
+        n_stop();
+        isPlaying = false;
     }
 
-    public void seek(final int secds)
+    public void seek(final int secds, boolean seekingfinished, boolean showTime)
     {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                n_seek(secds);
-            }
-        }).start();
+        seekingShowTime = showTime;
+        if(duration <= 0)
+        {
+            return;
+        }
+        if(seekingfinished)
+        {
+            isSeek = seekingfinished;
+            n_seek(secds);
+        }
     }
 
     public int getDuration()
@@ -265,7 +271,7 @@ public class WlMusic {
         return playSpeed;
     }
 
-    public static float getPlayPitch() {
+    public float getPlayPitch() {
         return playPitch;
     }
 
@@ -328,12 +334,18 @@ public class WlMusic {
      */
     private void onCallInfo(int currSec, int totalSec)
     {
+        if(!seekingShowTime)
+        {
+            return;
+        }
         if(onInfoListener != null && timeBean != null)
         {
-            timeBean.setCurrSecs(currSec);
-            timeBean.setTotalSecs(totalSec);
-            duration = totalSec;
-            onInfoListener.onInfo(timeBean);
+            if(!isSeek) {
+                timeBean.setCurrSecs(currSec);
+                timeBean.setTotalSecs(totalSec);
+                duration = totalSec;
+                onInfoListener.onInfo(timeBean);
+            }
         }
     }
 
@@ -371,10 +383,29 @@ public class WlMusic {
     }
 
     /**
+     * stop complete callback
+     */
+    private void onCallStopComplete()
+    {
+        if(playNext)
+        {
+            playNext = false;
+            prePared();
+        }
+    }
+
+    private void onCallSeekComplete()
+    {
+        isSeek = false;
+    }
+
+
+
+    /**
      * native prepared
      * @param source
      */
-    private native void n_parpared(String source);
+    private native void n_prepared(String source);
 
     /**
      * native start
@@ -395,7 +426,7 @@ public class WlMusic {
      * native stop
      * @return
      */
-    private native int n_stop();
+    private native void n_stop();
 
     /**
      * native seek to seconeds

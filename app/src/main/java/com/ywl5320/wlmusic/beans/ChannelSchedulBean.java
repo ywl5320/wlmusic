@@ -8,7 +8,7 @@ import java.util.List;
  * Created by ywl on 2018-1-13.
  */
 
-public class ChannelSchedulBean extends BaseBean{
+public class ChannelSchedulBean extends BaseBean {
 
     private String id;
     private String ondemandId;

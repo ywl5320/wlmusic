@@ -9,16 +9,16 @@
 
 ## Usage:
 
-### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.0.8) ](https://bintray.com/ywl5320/maven/wlmusic/1.0.8/link)
+### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.0.9) ](https://bintray.com/ywl5320/maven/wlmusic/1.0.9/link)
 
-	compile 'ywl.ywl5320:libmusic:1.0.8'
+	compile 'ywl.ywl5320:libmusic:1.0.9'
 
 ### Maven:
 
 	<dependency>
 	  <groupId>ywl.ywl5320</groupId>
 	  <artifactId>libmusic</artifactId>
-	  <version>1.0.8</version>
+	  <version>1.0.9</version>
 	  <type>pom</type>
 	</dependency>
 
@@ -107,6 +107,8 @@
 ### 16、添加设置声道方法 ---> add v1.0.5
 ### 17、添加设置音频音调方法 ---> add v1.0.6
 ### 18、更新设置播放速度方法 ---> add v1.0.6
+### 19、优化CPU使用率和内存使用率 ---> add v1.0.8
+### 20、优化seek时平稳过度 ---> add v1.0.9
 ### ......
 
 ### [实例APP下载，密码：4a2v](https://pan.baidu.com/s/1ADOTD8Fj_WJC07wCfGV0rQ)
@@ -136,7 +138,7 @@
 
 	public void playNext(String source) //切换播放源
 
-	public void seek(int secds) //seek进度（单位：秒）
+	public void seek(final int secds, boolean seekingfinished, boolean showTime) //secds：时间（秒） seekingfinished：true表示在滑动中 false表示滑动停止并执行seek功能 showTime：是否回调时间
 
 	public void setVolume(int percent) //设置音量（0~100）
 

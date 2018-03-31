@@ -1,7 +1,6 @@
 package com.ywl5320.wlmusic.activity;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.ywl5320.wlmusic.MusicService;
+import com.ywl5320.util.RawAssetsUtil;
 import com.ywl5320.wlmusic.MyApplication;
 import com.ywl5320.wlmusic.R;
 import com.ywl5320.wlmusic.base.BaseActivity;
@@ -21,6 +20,7 @@ import com.ywl5320.wlmusic.dialog.NormalAskDialog;
 import com.ywl5320.wlmusic.http.serviceapi.RadioApi;
 import com.ywl5320.wlmusic.http.subscribers.HttpSubscriber;
 import com.ywl5320.wlmusic.http.subscribers.SubscriberOnListener;
+import com.ywl5320.wlmusic.log.MyLog;
 
 import butterknife.BindView;
 

@@ -15,6 +15,7 @@ import com.ywl5320.listener.OnPauseResumeListener;
 import com.ywl5320.listener.OnPreparedListener;
 import com.ywl5320.listener.OnVolumeDBListener;
 import com.ywl5320.wlmusic.beans.EventBusBean;
+import com.ywl5320.wlmusic.beans.SeekBean;
 import com.ywl5320.wlmusic.config.EventType;
 import com.ywl5320.wlmusic.log.MyLog;
 
@@ -44,7 +45,7 @@ public class MusicService extends Service{
     public void onCreate() {
         super.onCreate();
         EventBus.getDefault().register(this);
-        wlMusic = new WlMusic();
+        wlMusic = WlMusic.getInstance();
     }
 
     @Override
@@ -67,7 +68,7 @@ public class MusicService extends Service{
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         url = intent.getStringExtra("url");
-        wlMusic = new WlMusic();
+        wlMusic = WlMusic.getInstance();
         wlMusic.setSource(url);
         wlMusic.setPlayCircle(true);
         wlMusic.setVolume(100);
@@ -168,7 +169,7 @@ public class MusicService extends Service{
             }
         });
 
-        wlMusic.parpared();
+        wlMusic.prePared();
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -203,8 +204,8 @@ public class MusicService extends Service{
         {
             if(wlMusic != null)
             {
-                int position = (int) messBean.getObject();
-                wlMusic.seek(position);
+                SeekBean seekBean = (SeekBean) messBean.getObject();
+                wlMusic.seek(seekBean.getPosition(), seekBean.isSeekingfinished(), seekBean.isShowTime());
             }
         }
     }

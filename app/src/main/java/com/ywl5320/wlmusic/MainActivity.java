@@ -1,11 +1,10 @@
 package com.ywl5320.wlmusic;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -34,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar seekBar2;
     private CheckBox checkBox;
     private int position = 0;
-    private boolean isSeek = false;
 
     private String spStyle = "正常播放1.0x";
     private String muStyle = "立体声";
@@ -52,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d("ywl5320", isChecked + "");
                 myMusic.setPlayCircle(isChecked);
             }
         });
@@ -60,18 +57,20 @@ public class MainActivity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                myMusic.setSeeking(true);
                 position = myMusic.getDuration() * progress / 100;
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                isSeek = true;
+                myMusic.seek(position, false, false);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 MyLog.d("position:" + position);
-                myMusic.seek(position);
+                myMusic.seek(position, true, true);
+//                myMusic.setSeeking(false);
             }
         });
 
@@ -91,13 +90,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        myMusic = new WlMusic();
-        myMusic.setPlayCircle(true); //设置不间断循环播放音频
-        myMusic.setVolume(65); //设置音量 65%
-        myMusic.setPlaySpeed(1.0f); //设置播放速度 (1.0正常) 范围：0.25---4.0f
-        myMusic.setPlayPitch(1.0f); //设置播放速度 (1.0正常) 范围：0.25---4.0f
-        myMusic.setMute(MuteEnum.MUTE_CENTER); //设置立体声（左声道、右声道和立体声）
-
+        myMusic = WlMusic.getInstance();
+        myMusic.setPlaySpeed(1);
+        myMusic.setPlayCircle(true);
+        myMusic.setVolume(65);
+        myMusic.setPlaySpeed(1.0f);
+        myMusic.setPlayPitch(1.0f);
         tvTime2.setText("音量：" + myMusic.getVolume() + "%");
         seekBar2.setProgress(myMusic.getVolume());
         checkBox.setChecked(myMusic.isPlayCircle());
@@ -128,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
         myMusic.setOnInfoListener(new OnInfoListener() {
             @Override
             public void onInfo(TimeBean timeBean) {
-                isSeek = false;
                 MyLog.d("curr:" + timeBean.getCurrSecs() + ", total:" + timeBean.getTotalSecs());
                 Message message = Message.obtain();
                 message.obj = timeBean;
@@ -168,8 +165,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 case 1:
                     TimeBean timeBean = (TimeBean) msg.obj;
-                    if(!isSeek)
-                        seekBar.setProgress(timeBean.getCurrSecs() * 100 / timeBean.getTotalSecs());
+                    seekBar.setProgress(timeBean.getCurrSecs() * 100 / timeBean.getTotalSecs());
                     tvTime.setText("时间：" + WlTimeUtil.secdsToDateFormat(timeBean.getCurrSecs(), timeBean.getTotalSecs()) + "/" + WlTimeUtil.secdsToDateFormat(timeBean.getTotalSecs(), timeBean.getTotalSecs()));
                     break;
                 case 2:
@@ -197,29 +193,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void start(View view) {
-        myMusic.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
-        myMusic.parpared();
+        myMusic.setSource("http://ngcdn001.cnr.cn/live/zgzs/index.m3u8");
+        myMusic.prePared();
     }
 
     public void change(View view) {
-        myMusic.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
         myMusic.playNext("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
+//        myMusic.playNext("/mnt/shared/Other/zzlfz.ape");
     }
 
     public void fast(View view) {
         myMusic.setPlaySpeed(1.5f);
+        myMusic.setPlayPitch(1.0f);
         spStyle = "变速不变调1.5x";
         setStyle();
     }
 
     public void slow(View view) {
         myMusic.setPlaySpeed(0.5f);
+        myMusic.setPlayPitch(1.0f);
         spStyle = "变速不变调0.5x";
         setStyle();
     }
 
     public void normal(View view) {
         myMusic.setPlaySpeed(1f);
+        myMusic.setPlayPitch(1.0f);
         spStyle = "变速不变调1.0x";
         setStyle();
     }
@@ -244,18 +243,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void fpitch(View view) {
         myMusic.setPlayPitch(1.5f);
+        myMusic.setPlaySpeed(1.0f);
         spStyle = "变调不变速1.5x";
         setStyle();
     }
 
     public void spitch(View view) {
         myMusic.setPlayPitch(0.5f);
+        myMusic.setPlaySpeed(1.0f);
         spStyle = "变调不变速0.5x";
         setStyle();
     }
 
     public void npitch(View view) {
         myMusic.setPlayPitch(1f);
+        myMusic.setPlaySpeed(1.0f);
         spStyle = "变调不变速1.0x";
         setStyle();
     }

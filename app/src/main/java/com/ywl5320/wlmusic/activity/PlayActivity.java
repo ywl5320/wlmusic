@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.gson.Gson;
 import com.ywl5320.bean.TimeBean;
 import com.ywl5320.util.WlTimeUtil;
 import com.ywl5320.wlmusic.MusicService;
@@ -25,7 +24,7 @@ import com.ywl5320.wlmusic.R;
 import com.ywl5320.wlmusic.base.BaseMusicActivity;
 import com.ywl5320.wlmusic.beans.ChannelSchedulBean;
 import com.ywl5320.wlmusic.beans.EventBusBean;
-import com.ywl5320.wlmusic.beans.LiveChannelBean;
+import com.ywl5320.wlmusic.beans.SeekBean;
 import com.ywl5320.wlmusic.config.EventType;
 import com.ywl5320.wlmusic.http.serviceapi.RadioApi;
 import com.ywl5320.wlmusic.http.subscribers.HttpSubscriber;
@@ -78,10 +77,10 @@ public class PlayActivity extends BaseMusicActivity {
     private LinearInterpolator lin;
     private EventBusBean eventNextBean;
     private EventBusBean eventSeekBean;
+    private SeekBean seekBean;
     private List<ChannelSchedulBean> datas;
 
     private int position = 0;
-    private boolean isSeek = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -122,7 +121,32 @@ public class PlayActivity extends BaseMusicActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                isSeek = true;
+                if(eventSeekBean == null)
+                {
+                    if(seekBean == null)
+                    {
+                        seekBean = new SeekBean();
+                    }
+                    seekBean.setPosition(position);
+                    seekBean.setSeekingfinished(false);
+                    seekBean.setShowTime(false);
+
+                    eventSeekBean = new EventBusBean(EventType.MUSIC_SEEK_TIME, seekBean);
+                }
+                else
+                {
+                    if(seekBean == null)
+                    {
+                        seekBean = new SeekBean();
+                    }
+                    seekBean.setPosition(position);
+                    seekBean.setSeekingfinished(false);
+                    seekBean.setShowTime(false);
+
+                    eventSeekBean.setType(EventType.MUSIC_SEEK_TIME);
+                    eventSeekBean.setObject(seekBean);
+                }
+                EventBus.getDefault().post(eventSeekBean);
             }
 
             @Override
@@ -130,15 +154,29 @@ public class PlayActivity extends BaseMusicActivity {
                 MyLog.d("position:" + position);
                 if(eventSeekBean == null)
                 {
-                    eventSeekBean = new EventBusBean(EventType.MUSIC_SEEK_TIME, position);
+                    if(seekBean == null)
+                    {
+                        seekBean = new SeekBean();
+                    }
+                    seekBean.setPosition(position);
+                    seekBean.setSeekingfinished(false);
+                    seekBean.setShowTime(false);
+
+                    eventSeekBean = new EventBusBean(EventType.MUSIC_SEEK_TIME, seekBean);
                 }
                 else
                 {
+                    if(seekBean == null)
+                    {
+                        seekBean = new SeekBean();
+                    }
+                    seekBean.setPosition(position);
+                    seekBean.setSeekingfinished(true);
+                    seekBean.setShowTime(true);
                     eventSeekBean.setType(EventType.MUSIC_SEEK_TIME);
-                    eventSeekBean.setObject(position);
+                    eventSeekBean.setObject(seekBean);
                 }
                 EventBus.getDefault().post(eventSeekBean);
-                isSeek = false;
             }
         });
         playRadio();
@@ -462,11 +500,8 @@ public class PlayActivity extends BaseMusicActivity {
                     tvTotalTime.setVisibility(View.VISIBLE);
                 }
                 tvTotalTime.setText(WlTimeUtil.secdsToDateFormat(timeBean.getTotalSecs(), timeBean.getTotalSecs()));
-                if(!isSeek)
-                {
-                    tvNowTime.setText(WlTimeUtil.secdsToDateFormat(timeBean.getCurrSecs(), timeBean.getTotalSecs()));
-                    seekBar.setProgress(getProgress());
-                }
+                tvNowTime.setText(WlTimeUtil.secdsToDateFormat(timeBean.getCurrSecs(), timeBean.getTotalSecs()));
+                seekBar.setProgress(getProgress());
             }
         }
     }

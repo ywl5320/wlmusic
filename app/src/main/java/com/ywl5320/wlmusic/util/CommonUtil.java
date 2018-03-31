@@ -8,7 +8,6 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.DisplayMetrics;
-import android.view.View;
 
 import java.io.File;
 import java.io.FileOutputStream;

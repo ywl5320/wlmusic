@@ -7,12 +7,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.ywl5320.wlmusic.MusicService;
 import com.ywl5320.wlmusic.MyApplication;
 import com.ywl5320.wlmusic.R;
@@ -21,15 +19,12 @@ import com.ywl5320.wlmusic.adapter.WapHeaderAndFooterAdapter;
 import com.ywl5320.wlmusic.base.BaseMusicActivity;
 import com.ywl5320.wlmusic.beans.LiveChannelBean;
 import com.ywl5320.wlmusic.beans.PlaceBean;
-import com.ywl5320.wlmusic.beans.PlayBean;
-import com.ywl5320.wlmusic.beans.StreamsBean;
 import com.ywl5320.wlmusic.dialog.LocalTypeDialog;
 import com.ywl5320.wlmusic.dialog.NormalAskDialog;
 import com.ywl5320.wlmusic.http.serviceapi.RadioApi;
 import com.ywl5320.wlmusic.http.subscribers.HttpSubscriber;
 import com.ywl5320.wlmusic.http.subscribers.SubscriberOnListener;
 import com.ywl5320.wlmusic.log.MyLog;
-import com.ywl5320.wlmusic.util.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
