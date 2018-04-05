@@ -145,7 +145,7 @@
 ### 21、添加边播边录功能 ---> add v1.1.0
 ### ......
 
-### [实例APP下载，密码：4a2v](https://pan.baidu.com/s/1ADOTD8Fj_WJC07wCfGV0rQ)
+### [实例APP下载，密码：0ok7](https://pan.baidu.com/s/1fDCOX-1rY4bT-n7MuTkaaw)
 
 
 ## 三、API（v1.0.8）
