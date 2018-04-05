@@ -10,7 +10,10 @@ import com.ywl5320.listener.OnInfoListener;
 import com.ywl5320.listener.OnLoadListener;
 import com.ywl5320.listener.OnPauseResumeListener;
 import com.ywl5320.listener.OnPreparedListener;
+import com.ywl5320.listener.OnRecordListener;
 import com.ywl5320.listener.OnVolumeDBListener;
+
+import java.io.File;
 
 /**
  * Created by ywl on 2018-1-7.
@@ -48,6 +51,16 @@ public class WlMusic {
      * this mutex of sound
      */
     private MuteEnum mute = MuteEnum.MUTE_CENTER;//0:left 1:right 2:center
+
+    /**
+     * record path dir
+     */
+    private String recordSavePath = null;
+
+    /**
+     * record file name
+     */
+    private String recordSaveName = null;
     /**
      * will play next
      */
@@ -70,6 +83,14 @@ public class WlMusic {
      * false:not show
      */
     private boolean seekingShowTime = true;
+
+    /**
+     * stop status
+     */
+    private boolean stopStatus = false;
+
+    private boolean preparedTostart = false;
+
     /**
      * prepared callback
      */
@@ -99,15 +120,26 @@ public class WlMusic {
      */
     private OnVolumeDBListener onVolumeDBListener;
 
+    /**
+     * this record time listener
+     */
+    private OnRecordListener onRecordListener;
+
     public static WlMusic instance = null;
 
     private WlMusic(){}
 
-    public static WlMusic getInstance()
+    public static synchronized WlMusic getInstance()
     {
         if(instance == null)
         {
-            instance = new WlMusic();
+            synchronized (WlMusic.class)
+            {
+                if(instance == null)
+                {
+                    instance = new WlMusic();
+                }
+            }
         }
         return instance;
     }
@@ -150,6 +182,10 @@ public class WlMusic {
         this.onVolumeDBListener = onVolumeDBListener;
     }
 
+    public void setOnRecordListener(OnRecordListener onRecordListener) {
+        this.onRecordListener = onRecordListener;
+    }
+
     public boolean isPlaying() {
         return isPlaying;
     }
@@ -161,7 +197,13 @@ public class WlMusic {
         {
             return;
         }
+        if(stopStatus)
+        {
+            return;
+        }
         isPlaying = true;
+        playNext = false;
+        preparedTostart = false;
         n_prepared(source);
     }
 
@@ -183,6 +225,14 @@ public class WlMusic {
 
     public void start()
     {
+        if(!preparedTostart)
+        {
+            if(onErrorListener != null)
+            {
+                onErrorListener.onError(1009, "please call parpared first");
+            }
+            return;
+        }
         if(timeBean == null)
         {
             timeBean = new TimeBean();
@@ -192,6 +242,7 @@ public class WlMusic {
         setPlaySpeed(playSpeed);
         setPlayPitch(playPitch);
         setMute(mute);
+        startRecordPlaying(recordSavePath, recordSaveName);
         n_start();
     }
 
@@ -217,9 +268,15 @@ public class WlMusic {
 
     public void stop()
     {
-        timeBean = null;
-        n_stop();
-        isPlaying = false;
+        if(!stopStatus)
+        {
+            stopStatus = true;
+            timeBean = null;
+            recordSaveName = null;
+            recordSavePath = null;
+            n_stop();
+            isPlaying = false;
+        }
     }
 
     public void seek(final int secds, boolean seekingfinished, boolean showTime)
@@ -291,6 +348,49 @@ public class WlMusic {
         return mute;
     }
 
+
+    public void startRecordPlaying(String recordSavePath, String recordSaveName)
+    {
+        if(TextUtils.isEmpty(recordSavePath) || TextUtils.isEmpty(recordSaveName))
+        {
+            return;
+        }
+        File file = new File(recordSavePath);
+        if(!file.exists())
+        {
+            file.mkdirs();
+        }
+        if(!file.exists())
+        {
+            if(onErrorListener != null)
+            {
+                onErrorListener.onError(1008, "record path is wrong");
+            }
+            return;
+        }
+        this.recordSavePath = recordSavePath;
+        this.recordSaveName = recordSaveName;
+        n_startPlayRecord(recordSavePath + "/" + recordSaveName + ".aac");
+    }
+
+    public void stopRecordPlaying()
+    {
+        this.recordSavePath = null;
+        this.recordSaveName = null;
+        n_stopPlayRecord();
+    }
+
+    public void pauseRecordPlaying()
+    {
+        n_pauseRecordPlaying();
+    }
+
+    public void resumeRecordPlaying()
+    {
+        n_resumeRecordPlaying();
+    }
+
+
     /**
      * for native call
      */
@@ -298,7 +398,11 @@ public class WlMusic {
     {
         if(onPreparedListener != null)
         {
-            onPreparedListener.onPrepared();
+            if(!stopStatus)
+            {
+                preparedTostart = true;
+                onPreparedListener.onPrepared();
+            }
         }
     }
 
@@ -358,7 +462,12 @@ public class WlMusic {
         {
             onCallInfo(duration, duration);
             onCompleteListener.onComplete();
-            stop();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    stop();
+                }
+            }).start();
         }
     }
 
@@ -387,18 +496,55 @@ public class WlMusic {
      */
     private void onCallStopComplete()
     {
+        stopStatus = false;
         if(playNext)
         {
-            playNext = false;
             prePared();
         }
     }
 
+    /**
+     * seek complete callback
+     */
     private void onCallSeekComplete()
     {
         isSeek = false;
     }
 
+    /**
+     * show record time callback
+     * @param secds
+     */
+    private void onCallRecordTime(int secds)
+    {
+        if(onRecordListener != null)
+        {
+            onRecordListener.onRecordTime(secds);
+        }
+    }
+
+    /**
+     * record complete callback
+     */
+    private void onCallRecordComplete()
+    {
+        if(onRecordListener != null)
+        {
+            onRecordListener.onRecordComplete();
+        }
+    }
+
+    /**
+     * record pause and resume callback
+     * @param pause
+     */
+    private void onCallRecordPauseResume(boolean pause)
+    {
+        if(onRecordListener != null)
+        {
+            onRecordListener.onRecordPauseResume(pause);
+        }
+    }
 
 
     /**
@@ -457,6 +603,26 @@ public class WlMusic {
      * @param mute
      */
     private native void n_mute(int mute);
+
+    /**
+     * start record while playing
+     */
+    private native void n_startPlayRecord(String aacsavepath);
+
+    /**
+     * stop record while playing
+     */
+    private native void n_stopPlayRecord();
+
+    /**
+     * pause the recorder
+     */
+    private native void n_pauseRecordPlaying();
+
+    /**
+     * resume the recorder
+     */
+    private native void n_resumeRecordPlaying();
 
     /**
      * load library

@@ -6,8 +6,8 @@ android {
         applicationId "com.ywl5320.wlmusic"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 8
-        versionName "1.0.7"
+        versionCode 11
+        versionName "1.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {

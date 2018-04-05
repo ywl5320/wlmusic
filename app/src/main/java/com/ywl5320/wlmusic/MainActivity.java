@@ -2,9 +2,11 @@ package com.ywl5320.wlmusic;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -19,6 +21,7 @@ import com.ywl5320.listener.OnErrorListener;
 import com.ywl5320.listener.OnInfoListener;
 import com.ywl5320.listener.OnLoadListener;
 import com.ywl5320.listener.OnPreparedListener;
+import com.ywl5320.listener.OnRecordListener;
 import com.ywl5320.listener.OnVolumeDBListener;
 import com.ywl5320.util.WlTimeUtil;
 import com.ywl5320.wlmusic.log.MyLog;
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvTime;
     private TextView tvTime2;
     private TextView tvStyle;
+    private TextView tvRecord;
+    private TextView tvRecordStatus;
     private WlMusic myMusic;
     private SeekBar seekBar;
     private SeekBar seekBar2;
@@ -47,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         seekBar2 = findViewById(R.id.seek_bar2);
         checkBox = findViewById(R.id.checkbox);
         tvStyle = findViewById(R.id.tv_style);
+        tvRecord = findViewById(R.id.tv_record);
+        tvRecordStatus = findViewById(R.id.tv_record_status);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -57,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                myMusic.setSeeking(true);
                 position = myMusic.getDuration() * progress / 100;
             }
 
@@ -68,9 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                MyLog.d("position:" + position);
                 myMusic.seek(position, true, true);
-//                myMusic.setSeeking(false);
             }
         });
 
@@ -113,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onError(int code, String msg) {
                 MyLog.d("code :" + code + ", msg :" + msg);
+                Log.d("ywl5320", "code :" + code + ", msg :" + msg);
             }
         });
 
@@ -144,11 +149,32 @@ public class MainActivity extends AppCompatActivity {
         myMusic.setOnVolumeDBListener(new OnVolumeDBListener() {
             @Override
             public void onVolumeDB(int db) {
-//                System.out.println("db is " + db);
-//                Message message = Message.obtain();
-//                message.obj = db;
-//                message.what = 2;
-//                handler.sendMessage(message);
+
+            }
+        });
+
+        myMusic.setOnRecordListener(new OnRecordListener() {
+            @Override
+            public void onRecordTime(int scds) {
+                Message message = Message.obtain();
+                message.obj = scds;
+                message.what = 2;
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onRecordComplete() {
+                Message message = Message.obtain();
+                message.what = 3;
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onRecordPauseResume(boolean pause) {
+                Message message = Message.obtain();
+                message.obj = pause;
+                message.what = 4;
+                handler.sendMessage(message);
             }
         });
 
@@ -169,7 +195,19 @@ public class MainActivity extends AppCompatActivity {
                     tvTime.setText("时间：" + WlTimeUtil.secdsToDateFormat(timeBean.getCurrSecs(), timeBean.getTotalSecs()) + "/" + WlTimeUtil.secdsToDateFormat(timeBean.getTotalSecs(), timeBean.getTotalSecs()));
                     break;
                 case 2:
-                    int db = (int) msg.obj;
+                    int secd = (int) msg.obj;
+                    tvRecord.setText("录音时间：" + WlTimeUtil.secdsToDateFormat(secd, 0));
+                    tvRecordStatus.setText("正在录音");
+                    break;
+                case 3:
+                    tvRecordStatus.setText("录音完成（存储位置：SD卡根目录：/ywl5320/record/myrecord.aac）");
+                    break;
+                case 4:
+                    boolean pause = (boolean) msg.obj;
+                    if(pause)
+                    {
+                        tvRecordStatus.setText("暂停录音");
+                    }
                     break;
                 default:
                     break;
@@ -177,11 +215,13 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         myMusic.stop();
     }
+
 
     public void pause(View view) {
         myMusic.pause();
@@ -289,5 +329,23 @@ public class MainActivity extends AppCompatActivity {
     private void setStyle()
     {
         tvStyle.setText(spStyle + " -- " + muStyle);
+    }
+
+    public void startrecord(View view) {
+        myMusic.startRecordPlaying(Environment.getExternalStorageDirectory().getAbsolutePath() + "/ywl5320/record", "myrecord");//生成的录音文件为：myrecord.aac
+    }
+
+    public void stoprecord(View view) {
+
+        myMusic.stopRecordPlaying();
+
+    }
+
+    public void pauserecord(View view) {
+        myMusic.pauseRecordPlaying();
+    }
+
+    public void resumerecord(View view) {
+        myMusic.resumeRecordPlaying();
     }
 }

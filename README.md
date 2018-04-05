@@ -7,18 +7,20 @@
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cpuuse.gif)
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/memeory.gif)
 
+## Update v1.1.0 修复播放完成回调bug；增加边播边录功能，留住好时光
+
 ## Usage:
 
-### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.0.9) ](https://bintray.com/ywl5320/maven/wlmusic/1.0.9/link)
+### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.1.0) ](https://bintray.com/ywl5320/maven/wlmusic/1.1.0/link)
 
-	compile 'ywl.ywl5320:libmusic:1.0.9'
+	compile 'ywl.ywl5320:libmusic:1.1.0'
 
 ### Maven:
 
 	<dependency>
 	  <groupId>ywl.ywl5320</groupId>
 	  <artifactId>libmusic</artifactId>
-	  <version>1.0.9</version>
+	  <version>1.1.0</version>
 	  <type>pom</type>
 	</dependency>
 
@@ -99,6 +101,18 @@
 #### 6、设置左声道
 
     wlMusic.setMute(MuteEnum.MUTE_LEFT);
+
+#### 7、开始录制
+    myMusic.startRecordPlaying(Environment.getExternalStorageDirectory().getAbsolutePath() + "/ywl5320/record", "myrecord");//生成的录音文件为：myrecord.aac
+
+#### 8、暂停录制
+    myMusic.pauseRecordPlaying();
+
+#### 9、恢复录制
+    myMusic.resumeRecordPlaying();
+
+#### 10、停止录制
+    myMusic.stopRecordPlaying();
 	
 
 ## 一、效果图（对应设置启动页：MainActivity 或者 SplashActivity）
@@ -128,6 +142,7 @@
 ### 18、更新设置播放速度方法 ---> add v1.0.6
 ### 19、优化CPU使用率和内存使用率 ---> add v1.0.8
 ### 20、优化seek时平稳过度 ---> add v1.0.9
+### 21、添加边播边录功能 ---> add v1.1.0
 ### ......
 
 ### [实例APP下载，密码：4a2v](https://pan.baidu.com/s/1ADOTD8Fj_WJC07wCfGV0rQ)
@@ -168,6 +183,14 @@
 	public void setPlayPitch(float pitch) //设置音频音调（默认正常音调 1.0 范围：0.25x ~ 4.0x）
 
 	public void setMute(MuteEnum mute) //设置播放声道 （MuteEnum.MUTE_LEFT,MuteEnum.MUTE_RIGHT,MuteEnum.MUTE_CENTER）
+
+	public void startRecordPlaying(String recordSavePath, String recordSaveName) // 边播边录 （recordSavePath：存储目录；recordSaveName：录制文件名称）
+
+	public void stopRecordPlaying() // 停止录制
+
+	public void pauseRecordPlaying() //暂停录制
+
+	public void resumeRecordPlaying() //恢复录制
 
 	public void setOnErrorListener(OnErrorListener onErrorListener) //出错回调
 
