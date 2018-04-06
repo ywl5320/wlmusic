@@ -146,7 +146,7 @@
 ### [实例APP下载，密码：0ok7](https://pan.baidu.com/s/1fDCOX-1rY4bT-n7MuTkaaw)
 
 
-## 三、API（v1.0.8）
+## 三、API（v1.1.0）
 	
 	public void setSource(String source) //设置音频源
 
