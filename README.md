@@ -123,7 +123,7 @@
 
 
 ## 一、效果图（对应设置启动页：MainActivity（实例演示） 或者 SplashActivity（广播列表播放实例）或者 CutAudioActivity（音频裁剪演示））
-![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/sample.gif)
+![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/sample.gif)<br/>
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/music.gif)<br/>
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cutaudio.gif)<br/>
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cutaudio.png)<br/>
