@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_totaltime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="总时长："
+        android:layout_marginTop="20dp"
+        android:textColor="@color/color_333333"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="裁剪时间段："
+            android:textColor="@color/color_333333"/>
+        <EditText
+            android:id="@+id/et_start"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="50s"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:digits="0123456789"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="到"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+        <EditText
+            android:id="@+id/et_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="80s"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:digits="0123456789"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="裁剪预览播放"
+        android:onClick="playCutAudio"
+        android:layout_marginTop="20dp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开始裁剪"
+        android:onClick="cutAudio"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="停止"
+        android:onClick="stop"/>
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="状态："
+        android:textColor="#ff0000"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>

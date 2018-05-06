@@ -26,6 +26,9 @@ import com.ywl5320.listener.OnVolumeDBListener;
 import com.ywl5320.util.WlTimeUtil;
 import com.ywl5320.wlmusic.log.MyLog;
 
+/**
+ * Created by ywl5320 on 2018/5/4.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvTime;
@@ -200,13 +203,13 @@ public class MainActivity extends AppCompatActivity {
                     tvRecordStatus.setText("正在录音");
                     break;
                 case 3:
-                    tvRecordStatus.setText("录音完成（存储位置：SD卡根目录：/ywl5320/record/myrecord.aac）");
+                    tvRecordStatus.setText("录音完成");
                     break;
                 case 4:
                     boolean pause = (boolean) msg.obj;
                     if(pause)
                     {
-                        tvRecordStatus.setText("暂停录音");
+                        tvRecordStatus.setText("正在暂停");
                     }
                     break;
                 default:

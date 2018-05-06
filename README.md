@@ -1,26 +1,30 @@
 # wlmusic
-基于FFmpeg的音频播放SDK，可循环不间断播放短音频，播放raw和assets音频文件，可独立设置音量大小，可实时现在音量分贝大小（用于绘制波形图），可改变音频播放速度和音调（变速不变调、变调不变速、变速又变调），可设置播放声道（左声道、右声道和立体声），可边播边录留住美好音乐等。
+基于FFmpeg + OpenSL ES的音频播放SDK。可循环不间断播放短音频；播放raw和assets音频文件；可独立设置音量大小；可实时现在音量分贝大小（用于绘制波形图）；可改变音频播放速度和音调（变速不变调、变调不变速、变速又变调）；可设置播放声道（左声道、右声道和立体声）；可边播边录留住美好音乐；可裁剪指定时间段的音频，制作自己的彩铃等。
 
 ## [我的视频课程：《FFmpeg打造Android万能音频播放器》](https://edu.csdn.net/course/detail/6842)
 
-## Update v1.0.8 优化cpu使用率和内存大小 测试设备：红米2A手机（性能算很差的了）
+## CPU和内存使用情况：测试设备：红米2A手机
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cpuuse.gif)
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/memeory.gif)
 
-## Update v1.1.0 修复播放完成回调bug；增加边播边录功能，留住好时光
+## Update v1.1.1 增加音频裁剪功能
 
 ## Usage:
 
-### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.1.0) ](https://bintray.com/ywl5320/maven/wlmusic/1.1.0/link)
+### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.1.1) ](https://bintray.com/ywl5320/maven/wlmusic/1.1.1/link)
 
-	compile 'ywl.ywl5320:libmusic:1.1.0'
+	compile 'ywl.ywl5320:libmusic:1.1.1'
+	or
+	implementation 'ywl.ywl5320:libmusic:1.1.1'
+	or
+	api 'ywl.ywl5320:libmusic:1.1.1'
 
 ### Maven:
 
 	<dependency>
 	  <groupId>ywl.ywl5320</groupId>
 	  <artifactId>libmusic</artifactId>
-	  <version>1.1.0</version>
+	  <version>1.1.1</version>
 	  <type>pom</type>
 	</dependency>
 
@@ -113,11 +117,16 @@
 
 #### 10、停止录制
     myMusic.stopRecordPlaying();
-	
 
-## 一、效果图（对应设置启动页：MainActivity 或者 SplashActivity）
+#### 11、裁剪音频（对应可获取总长度的音频）
+    看CutAudioActivity中演示代码
+
+
+## 一、效果图（对应设置启动页：MainActivity（实例演示） 或者 SplashActivity（广播列表播放实例）或者 CutAudioActivity（音频裁剪演示））
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/sample.gif)
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/music.gif)<br/>
+![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cutaudio.gif)<br/>
+![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cutaudio.png)<br/>
 
 ## 二、功能特色：
 ### 1、播放本地音频或网络音频流媒体
@@ -141,12 +150,14 @@
 ### 19、优化CPU使用率和内存使用率 ---> add v1.0.8
 ### 20、优化seek时平稳过度 ---> add v1.0.9
 ### 21、添加边播边录功能 ---> add v1.1.0
+### 22、增加音频裁剪预览播放功能 --> add v1.1.1
+### 23、增加指定时间段音频裁剪功能 --> add v1.1.1
 ### ......
 
 ### [实例APP下载，密码：0ok7](https://pan.baidu.com/s/1fDCOX-1rY4bT-n7MuTkaaw)
 
 
-## 三、API（v1.1.0）
+## 三、API（v1.1.1）
 	
 	public void setSource(String source) //设置音频源
 
@@ -201,6 +212,10 @@
 	public void setOnPauseResumeListener(OnPauseResumeListener onPauseResumeListener) //暂停、恢复回调
 
 	public void setOnVolumeDBListener(OnVolumeDBListener onVolumeDBListener) //声音分贝大小回调
+
+	public void playCutAudio(int start_secs, int end_secs) //裁剪音频预览播放（参数：开始和结束时间 单位：秒）
+
+	public void cutAudio(int start_secs, int end_secs, String savepath, String filename) //开始裁剪 （参数：开始、结束时间（秒）、裁剪音频保存目录、裁剪音频保存名称）
 
 
 ## 四、环境
