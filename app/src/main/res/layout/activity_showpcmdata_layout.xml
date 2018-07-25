@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_white">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:textColor="@color/color_ec4c48"
+        android:textSize="14dp"
+        android:text="音频数据二次开发：支持裁剪,变速变调"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:textColor="@color/color_333333"
+        android:textSize="14dp"
+        android:text="开始时间：150s"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:textColor="@color/color_333333"
+        android:textSize="14dp"
+        android:text="结束时间：200s"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:textColor="@color/color_333333"
+        android:textSize="14dp"
+        android:text="处理模式：fast"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:onClick="showpcmdata"
+        android:text="获取pcm原始数据，自己处理"/>
+
+    <TextView
+        android:id="@+id/tv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:textColor="@color/color_ec4c48"
+        android:textSize="14dp"/>
+
+</LinearLayout>

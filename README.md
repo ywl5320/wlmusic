@@ -8,24 +8,24 @@
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cpuuse.gif)
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/memeory.gif)
 
-## Update v1.1.1 增加音频裁剪功能
+## Update v1.1.2 暴露原始音频数据（PCM）给开发者，方便二次开发！
 
 ## Usage:
 
-### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.1.1) ](https://bintray.com/ywl5320/maven/wlmusic/1.1.1/link)
+### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.1.2) ](https://bintray.com/ywl5320/maven/wlmusic/1.1.2/link)
 
-	compile 'ywl.ywl5320:libmusic:1.1.1'
+	compile 'ywl.ywl5320:libmusic:1.1.2'
 	or
-	implementation 'ywl.ywl5320:libmusic:1.1.1'
+	implementation 'ywl.ywl5320:libmusic:1.1.2'
 	or
-	api 'ywl.ywl5320:libmusic:1.1.1'
+	api 'ywl.ywl5320:libmusic:1.1.2'
 
 ### Maven:
 
 	<dependency>
 	  <groupId>ywl.ywl5320</groupId>
 	  <artifactId>libmusic</artifactId>
-	  <version>1.1.1</version>
+	  <version>1.1.2</version>
 	  <type>pom</type>
 	</dependency>
 
@@ -122,11 +122,15 @@
 #### 11、裁剪音频（对应可获取总长度的音频）
     看CutAudioActivity中演示代码
 
+#### 12、获取音频PCM数据（对应可获取总长度的音频）
+    看ShowPcmdataActivity中演示代码
 
-## 一、效果图（对应设置启动页：MainActivity（实例演示） 或者 SplashActivity（广播列表播放实例）或者 CutAudioActivity（音频裁剪演示））
+
+## 一、效果图（对应设置启动页：MainActivity（实例演示） 或者 SplashActivity（广播列表播放实例）或者 CutAudioActivity（音频裁剪演示）或者 ShowPcmdataActivity（获取PCM原始音频数据演示））
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/sample.gif)<br/>
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/music.gif)<br/>
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cutaudio.gif)<br/>
+![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/showpcmdata.gif)<br/>
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cutaudio.png)<br/>
 
 ## 二、功能特色：
@@ -153,6 +157,7 @@
 ### 21、添加边播边录功能 ---> add v1.1.0
 ### 22、增加音频裁剪预览播放功能 --> add v1.1.1
 ### 23、增加指定时间段音频裁剪功能 --> add v1.1.1
+### 24、增加原始音频数据暴露接口 --> add v1.1.2
 ### ......
 
 ### [实例APP下载，密码：0ok7](https://pan.baidu.com/s/1fDCOX-1rY4bT-n7MuTkaaw)
@@ -217,6 +222,8 @@
 	public void playCutAudio(int start_secs, int end_secs) //裁剪音频预览播放（参数：开始和结束时间 单位：秒）
 
 	public void cutAudio(int start_secs, int end_secs, String savepath, String filename) //开始裁剪 （参数：开始、结束时间（秒）、裁剪音频保存目录、裁剪音频保存名称）
+
+	public void setShowPcmData(boolean show, boolean showPcmDataFastModel) //参数：show:设置是否获取PCM数据；参数：showPcmDataFastModel:true 快速模式(有数据就立即返回) false:正常模式（和播放一样的速度）
 
 
 ## 四、环境
