@@ -160,8 +160,6 @@
 ### 24、增加原始音频数据暴露接口 --> add v1.1.2
 ### ......
 
-### [实例APP下载，密码：0ok7](https://pan.baidu.com/s/1fDCOX-1rY4bT-n7MuTkaaw)
-
 
 ## 三、API（v1.1.1）
 	
