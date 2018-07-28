@@ -64,5 +64,5 @@ dependencies {
     implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
 
 
-    implementation 'ywl.ywl5320:libmusic:1.1.2'
+    implementation 'ywl.ywl5320:libmusic:1.1.3'
 }

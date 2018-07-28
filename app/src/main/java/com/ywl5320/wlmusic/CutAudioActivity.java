@@ -16,6 +16,7 @@ import com.ywl5320.listener.OnErrorListener;
 import com.ywl5320.listener.OnInfoListener;
 import com.ywl5320.listener.OnPreparedListener;
 import com.ywl5320.listener.OnRecordListener;
+import com.ywl5320.listener.OnShowPcmDataListener;
 import com.ywl5320.wlmusic.log.MyLog;
 
 /**
@@ -53,7 +54,7 @@ public class CutAudioActivity extends AppCompatActivity {
                 }
                 else if(type == 2)
                 {
-                    wlMusic.playCutAudio(start, end);
+                    wlMusic.playCutAudio(start, end, true);
                 }
                 else if(type == 3)
                 {
@@ -105,6 +106,19 @@ public class CutAudioActivity extends AppCompatActivity {
 
             }
         });
+
+        wlMusic.setOnShowPcmDataListener(new OnShowPcmDataListener() {
+            @Override
+            public void onPcmInfo(int samplerate, int bit, int channels) {
+                MyLog.d(samplerate + "--" + bit + "--" + channels);
+            }
+
+            @Override
+            public void onPcmData(byte[] pcmdata, int size, int clock) {
+                MyLog.d("size is: " + size);
+            }
+        });
+
         type = 3;
         wlMusic.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
         wlMusic.prePared();
