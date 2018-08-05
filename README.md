@@ -1,4 +1,4 @@
-# wlmusic v1.1.3（讨论群：806397913）
+# wlmusic v1.1.4（讨论群：806397913）
 基于FFmpeg + OpenSL ES的音频播放SDK。可循环不间断播放短音频；播放raw和assets音频文件；可独立设置音量大小；可实时现在音量分贝大小（用于绘制波形图）；可改变音频播放速度和音调（变速不变调、变调不变速、变速又变调）；可设置播放声道（左声道、右声道和立体声）；可边播边录留住美好音乐；可裁剪指定时间段的音频，制作自己的彩铃；还可以从中获取音频原始PCM数据，方便二次开发等。
 
 ## [我的视频课程（基础）：《（NDK）FFmpeg打造Android万能音频播放器》](https://edu.csdn.net/course/detail/6842)
@@ -8,20 +8,20 @@
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cpuuse.gif)
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/memeory.gif)
 
-## Update v1.1.3 暴露原始音频数据（PCM）给开发者，方便二次开发！
+## Update v1.1.4 增加 armeabi-v7a 库, 并使用none优化
 
 ## Usage:
 
-### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.1.3) ](https://bintray.com/ywl5320/maven/wlmusic/1.1.3/link)
+### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.1.4) ](https://bintray.com/ywl5320/maven/wlmusic/1.1.4/link)
 
-	implementation 'ywl.ywl5320:libmusic:1.1.3'
+	implementation 'ywl.ywl5320:libmusic:1.1.4'
 
 ### Maven:
 
 	<dependency>
 	  <groupId>ywl.ywl5320</groupId>
 	  <artifactId>libmusic</artifactId>
-	  <version>1.1.3</version>
+	  <version>1.1.4</version>
 	  <type>pom</type>
 	</dependency>
 
@@ -31,6 +31,7 @@
 		...
 		ndk {
 		    abiFilter("armeabi")
+		    abiFilter("armeabi-v7a")
 		    abiFilter("x86")
 		}
 
@@ -155,10 +156,11 @@
 ### 23、增加指定时间段音频裁剪功能 --> add v1.1.1
 ### 24、增加原始音频数据（PCM）暴露接口 --> add v1.1.2
 ### 25、增加裁剪播放时回调PCM数据 --> add v1.1.3
+### 26、增加 armeabi-v7a 库，并进行了none优化 -->add v1.1.4
 ### ......
 
 
-## 三、API（v1.1.3）
+## 三、API（v1.1.4）
 	
 	public void setSource(String source) //设置音频源
 
