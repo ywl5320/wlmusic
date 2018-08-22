@@ -6,8 +6,8 @@ android {
         applicationId "com.ywl5320.wlmusic"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 15
-        versionName "1.1.4"
+        versionCode 16
+        versionName "1.1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -65,5 +65,5 @@ dependencies {
     implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
 
 
-    implementation 'ywl.ywl5320:libmusic:1.1.4'
+    implementation 'ywl.ywl5320:libmusic:1.1.5'
 }

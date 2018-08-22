@@ -8,20 +8,20 @@
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cpuuse.gif)
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/memeory.gif)
 
-## Update v1.1.4 增加 armeabi-v7a 库, 并使用none优化
+## Update v1.1.5 修复.wav文件播放、增加快速切换变声变调的稳定性
 
 ## Usage:
 
-### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.1.4) ](https://bintray.com/ywl5320/maven/wlmusic/1.1.4/link)
+### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.1.5) ](https://bintray.com/ywl5320/maven/wlmusic/1.1.5/link)
 
-	implementation 'ywl.ywl5320:libmusic:1.1.4'
+	implementation 'ywl.ywl5320:libmusic:1.1.5'
 
 ### Maven:
 
 	<dependency>
 	  <groupId>ywl.ywl5320</groupId>
 	  <artifactId>libmusic</artifactId>
-	  <version>1.1.4</version>
+	  <version>1.1.5</version>
 	  <type>pom</type>
 	</dependency>
 
@@ -157,10 +157,11 @@
 ### 24、增加原始音频数据（PCM）暴露接口 --> add v1.1.2
 ### 25、增加裁剪播放时回调PCM数据 --> add v1.1.3
 ### 26、增加 armeabi-v7a 库，并进行了none优化 -->add v1.1.4
+### 27、修复.wav文件不能播放问题、增加快速切换变声变调功能的稳定性 -->add v1.1.5
 ### ......
 
 
-## 三、API（v1.1.4）
+## 三、API（v1.1.5）
 	
 	public void setSource(String source) //设置音频源
 
