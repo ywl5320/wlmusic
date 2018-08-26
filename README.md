@@ -122,9 +122,6 @@
 #### 11、裁剪音频（对应可获取总长度的音频）
     看CutAudioActivity中演示代码
 
-#### 12、获取音频PCM数据（对应可获取总长度的音频）
-    看ShowPcmdataActivity中演示代码
-
 
 ## 一、效果图（对应设置启动页：MainActivity（实例演示） 或者 SplashActivity（广播列表播放实例）或者 CutAudioActivity（音频裁剪演示）)
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/sample.gif)<br/>
@@ -228,7 +225,7 @@
 
 	public void cutAudio(int start_secs, int end_secs) //裁剪音频 快速回调PCM数据到应用层（setCallBackPcmData为true时才有效）
 
-	public void playCutAudio(int start_secs, int end_secs) //裁剪是预览播放
+	public void playCutAudio(int start_secs, int end_secs) //裁剪时预览播放
 
 
 
