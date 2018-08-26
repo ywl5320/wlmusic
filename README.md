@@ -1,4 +1,4 @@
-# wlmusic v1.1.5（讨论群：806397913）
+# wlmusic v1.2.0（讨论群：806397913）
 基于FFmpeg + OpenSL ES的音频播放SDK。可循环不间断播放短音频；播放raw和assets音频文件；可独立设置音量大小；可实时现在音量分贝大小（用于绘制波形图）；可改变音频播放速度和音调（变速不变调、变调不变速、变速又变调）；可设置播放声道（左声道、右声道和立体声）；可边播边录留住美好音乐；可裁剪指定时间段的音频，制作自己的彩铃；还可以从中获取音频原始PCM数据，方便二次开发等。
 
 ## [我的视频课程（基础）：《（NDK）FFmpeg打造Android万能音频播放器》](https://edu.csdn.net/course/detail/6842)
@@ -9,20 +9,20 @@
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cpuuse.gif)
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/memeory.gif)
 
-## Update v1.1.5 修复.wav文件播放、增加快速切换变声变调的稳定性
+## Update v1.2.0 重构音频裁剪和PCM数据回调逻辑， 使调用更简单。
 
 ## Usage:
 
-### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.1.5) ](https://bintray.com/ywl5320/maven/wlmusic/1.1.5/link)
+### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.2.0) ](https://bintray.com/ywl5320/maven/wlmusic/1.2.0/link)
 
-	implementation 'ywl.ywl5320:libmusic:1.1.5'
+	implementation 'ywl.ywl5320:libmusic:1.2.0'
 
 ### Maven:
 
 	<dependency>
 	  <groupId>ywl.ywl5320</groupId>
 	  <artifactId>libmusic</artifactId>
-	  <version>1.1.5</version>
+	  <version>1.2.0</version>
 	  <type>pom</type>
 	</dependency>
 
@@ -50,11 +50,13 @@
 
 	WlMusic wlMusic = WlMusic.getInstance();
 	wlMusic.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3"); //设置音频源
-    myMusic.setPlayCircle(true); //设置不间断循环播放音频
-    myMusic.setVolume(65); //设置音量 65%
-    myMusic.setPlaySpeed(1.0f); //设置播放速度 (1.0正常) 范围：0.25---4.0f
-    myMusic.setPlayPitch(1.0f); //设置播放速度 (1.0正常) 范围：0.25---4.0f
-    myMusic.setMute(MuteEnum.MUTE_CENTER); //设置立体声（左声道、右声道和立体声）
+	wlMusic.setCallBackPcmData(true);//是否返回音频PCM数据
+    wlMusic.setShowPCMDB(true);//是否返回音频分贝大小
+    wlMusic.setPlayCircle(true); //设置不间断循环播放音频
+    wlMusic.setVolume(65); //设置音量 65%
+    wlMusic.setPlaySpeed(1.0f); //设置播放速度 (1.0正常) 范围：0.25---4.0f
+    wlMusic.setPlayPitch(1.0f); //设置播放速度 (1.0正常) 范围：0.25---4.0f
+    wlMusic.setMute(MuteEnum.MUTE_CENTER); //设置立体声（左声道、右声道和立体声）
     wlMusic.parpared();准备开始
 
 	wlMusic.setOnPreparedListener(new OnPreparedListener() {
@@ -68,17 +70,17 @@
 	seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            position = myMusic.getDuration() * progress / 100;
+            position = wlMusic.getDuration() * progress / 100;
         }
 
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
-            myMusic.seek(position, false, false);// 表示在seeking中，此时不回调时间
+            wlMusic.seek(position, false, false);// 表示在seeking中，此时不回调时间
         }
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            myMusic.seek(position, true, true);//表示seek已经完成，然后才回调时间，避免自己控制时间逻辑和时间显示不稳定问题。
+            wlMusic.seek(position, true, true);//表示seek已经完成，然后才回调时间，避免自己控制时间逻辑和时间显示不稳定问题。
         }
     });
 
@@ -106,16 +108,16 @@
     wlMusic.setMute(MuteEnum.MUTE_LEFT);
 
 #### 7、开始录制
-    myMusic.startRecordPlaying(Environment.getExternalStorageDirectory().getAbsolutePath() + "/ywl5320/record", "myrecord");//生成的录音文件为：myrecord.aac
+    wlMusic.startRecordPlaying(Environment.getExternalStorageDirectory().getAbsolutePath() + "/ywl5320/record", "myrecord");//生成的录音文件为：myrecord.aac
 
 #### 8、暂停录制
-    myMusic.pauseRecordPlaying();
+    wlMusic.pauseRecordPlaying();
 
 #### 9、恢复录制
-    myMusic.resumeRecordPlaying();
+    wlMusic.resumeRecordPlaying();
 
 #### 10、停止录制
-    myMusic.stopRecordPlaying();
+    wlMusic.stopRecordPlaying();
 
 #### 11、裁剪音频（对应可获取总长度的音频）
     看CutAudioActivity中演示代码
@@ -124,11 +126,10 @@
     看ShowPcmdataActivity中演示代码
 
 
-## 一、效果图（对应设置启动页：MainActivity（实例演示） 或者 SplashActivity（广播列表播放实例）或者 CutAudioActivity（音频裁剪演示）或者 ShowPcmdataActivity（获取PCM原始音频数据演示））
+## 一、效果图（对应设置启动页：MainActivity（实例演示） 或者 SplashActivity（广播列表播放实例）或者 CutAudioActivity（音频裁剪演示）)
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/sample.gif)<br/>
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/music.gif)<br/>
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cutaudio.gif)<br/>
-![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/showpcmdata.gif)<br/>
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/cutaudio.png)<br/>
 
 ## 二、功能特色：
@@ -159,10 +160,11 @@
 ### 25、增加裁剪播放时回调PCM数据 --> add v1.1.3
 ### 26、增加 armeabi-v7a 库，并进行了none优化 -->add v1.1.4
 ### 27、修复.wav文件不能播放问题、增加快速切换变声变调功能的稳定性 -->add v1.1.5
+### 28、重构音频裁剪和PCM数据回调逻辑， 使调用更简单 -->add v1.2.0
 ### ......
 
 
-## 三、API（v1.1.5）
+## 三、API（v1.2.0）
 	
 	public void setSource(String source) //设置音频源
 
@@ -218,13 +220,15 @@
 
 	public void setOnVolumeDBListener(OnVolumeDBListener onVolumeDBListener) //声音分贝大小回调
 
-	public void playCutAudio(int start_secs, int end_secs) //裁剪音频预览播放（参数：开始和结束时间 单位：秒）
+    public void setCallBackPcmData(boolean callBackPcmData) //全局设置是否把播放的PCM原始数据回调到应用层
 
-	public void playCutAudio(int start_secs, int end_secs, boolean cShowPcmData) //裁剪音频预览播放（参数：开始和结束时间 单位：秒，最后一个为：开启数据回调功能）
+    public void setShowPCMDB(boolean showPCMDB) //设置是否回调音频分贝数
 
 	public void cutAudio(int start_secs, int end_secs, String savepath, String filename) //开始裁剪 （参数：开始、结束时间（秒）、裁剪音频保存目录、裁剪音频保存名称）
 
-	public void setShowPcmData(boolean show, boolean showPcmDataFastModel) //参数：show:设置是否获取PCM数据；参数：showPcmDataFastModel:true 快速模式(有数据就立即返回) false:正常模式（和播放一样的速度）
+	public void cutAudio(int start_secs, int end_secs) //裁剪音频 快速回调PCM数据到应用层（setCallBackPcmData为true时才有效）
+
+	public void playCutAudio(int start_secs, int end_secs) //裁剪是预览播放
 
 
 

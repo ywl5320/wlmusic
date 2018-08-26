@@ -57,8 +57,14 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="开始裁剪"
+        android:text="开始裁剪并录制"
         android:onClick="cutAudio"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开始裁剪不录制"
+        android:onClick="cutAudioNorecord"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
