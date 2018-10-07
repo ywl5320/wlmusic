@@ -252,8 +252,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void start(View view) {
-        myMusic.setSource("/mnt/shared/Other/林俊杰 - 爱不会绝迹.wav");
+//        myMusic.setSource("/mnt/shared/Other/林俊杰 - 爱不会绝迹.wav");
 //        myMusic.setSource(Environment.getExternalStorageDirectory().getAbsolutePath() + "/林俊杰 - 爱不会绝迹.wav");
+        myMusic.setSource("https://vips-static.pnlyy.com/Fn57-AhK0RjfjymvEoIErGKmmcPm");
         myMusic.prePared();
     }
 
