@@ -1,11 +1,11 @@
 package com.ywl5320.wlmusic;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -22,13 +22,11 @@ import com.ywl5320.listener.OnInfoListener;
 import com.ywl5320.listener.OnLoadListener;
 import com.ywl5320.listener.OnPreparedListener;
 import com.ywl5320.listener.OnRecordListener;
+import com.ywl5320.listener.OnShowPcmDataListener;
 import com.ywl5320.listener.OnVolumeDBListener;
 import com.ywl5320.util.WlTimeUtil;
 import com.ywl5320.wlmusic.log.MyLog;
 
-/**
- * Created by ywl5320 on 2018/5/4.
- */
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvTime;
@@ -98,11 +96,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         myMusic = WlMusic.getInstance();
-        myMusic.setPlaySpeed(1);
-        myMusic.setPlayCircle(true);
-        myMusic.setVolume(65);
-        myMusic.setPlaySpeed(1.0f);
-        myMusic.setPlayPitch(1.0f);
+        myMusic.setCallBackPcmData(true);//是否返回音频PCM数据
+        myMusic.setShowPCMDB(true);//是否返回音频分贝大小
+        myMusic.setPlayCircle(true);//循环播放
+        myMusic.setVolume(65);//声音大小65%
+        myMusic.setPlaySpeed(1.0f);//播放速度正常
+        myMusic.setPlayPitch(1.0f);//播放音调正常
         tvTime2.setText("音量：" + myMusic.getVolume() + "%");
         seekBar2.setProgress(myMusic.getVolume());
         checkBox.setChecked(myMusic.isPlayCircle());
@@ -134,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         myMusic.setOnInfoListener(new OnInfoListener() {
             @Override
             public void onInfo(TimeBean timeBean) {
-                MyLog.d("curr:" + timeBean.getCurrSecs() + ", total:" + timeBean.getTotalSecs());
+                //MyLog.d("curr:" + timeBean.getCurrSecs() + ", total:" + timeBean.getTotalSecs());
                 Message message = Message.obtain();
                 message.obj = timeBean;
                 message.what = 1;
@@ -152,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         myMusic.setOnVolumeDBListener(new OnVolumeDBListener() {
             @Override
             public void onVolumeDB(int db) {
-
+                MyLog.d("db is : " + db);
             }
         });
 
@@ -163,6 +162,8 @@ public class MainActivity extends AppCompatActivity {
                 message.obj = scds;
                 message.what = 2;
                 handler.sendMessage(message);
+
+                MyLog.d("record time is:" + scds);
             }
 
             @Override
@@ -178,6 +179,18 @@ public class MainActivity extends AppCompatActivity {
                 message.obj = pause;
                 message.what = 4;
                 handler.sendMessage(message);
+            }
+        });
+
+        myMusic.setOnShowPcmDataListener(new OnShowPcmDataListener() {
+            @Override
+            public void onPcmInfo(int samplerate, int bit, int channels) {
+                MyLog.d(samplerate + "---" + bit + "---" + channels);
+            }
+
+            @Override
+            public void onPcmData(byte[] pcmdata, int size, long clock) {
+                MyLog.d("pcm size is : " + size + " time is : " + clock);
             }
         });
 
@@ -239,7 +252,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void start(View view) {
-        myMusic.setSource("http://ngcdn001.cnr.cn/live/zgzs/index.m3u8");
+//        myMusic.setSource("/mnt/shared/Other/林俊杰 - 爱不会绝迹.wav");
+//        myMusic.setSource(Environment.getExternalStorageDirectory().getAbsolutePath() + "/林俊杰 - 爱不会绝迹.wav");
+        myMusic.setSource("https://vips-static.pnlyy.com/Fn57-AhK0RjfjymvEoIErGKmmcPm");
         myMusic.prePared();
     }
 
@@ -335,7 +350,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startrecord(View view) {
-        myMusic.startRecordPlaying(Environment.getExternalStorageDirectory().getAbsolutePath() + "/ywl5320/record", "myrecord");//生成的录音文件为：myrecord.aac
+        myMusic.startRecordPlaying("/mnt/shared/Other", "myrecord");//生成的录音文件为：myrecord.aac
     }
 
     public void stoprecord(View view) {

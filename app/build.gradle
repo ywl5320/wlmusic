@@ -6,12 +6,12 @@ android {
         applicationId "com.ywl5320.wlmusic"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 13
-        versionName "1.1.2"
+        versionCode 18
+        versionName "1.2.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
-            abiFilter("armeabi")
+            abiFilter("armeabi-v7a")
             abiFilter("x86")
         }
 
@@ -63,6 +63,5 @@ dependencies {
     // If you want to use the GPU Filters
     implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
 
-
-    implementation 'ywl.ywl5320:libmusic:1.1.2'
+    implementation 'ywl.ywl5320:libmusic:1.2.1'
 }
