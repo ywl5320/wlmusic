@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         wlMusic.setOnInfoListener(new OnInfoListener() {
             @Override
             public void onInfo(TimeBean timeBean) {
-                //MyLog.d("curr:" + timeBean.getCurrSecs() + ", total:" + timeBean.getTotalSecs());
+                MyLog.d("curr:" + timeBean.getCurrSecs() + ", total:" + timeBean.getTotalSecs());
                 Message message = Message.obtain();
                 message.obj = timeBean;
                 message.what = 1;
