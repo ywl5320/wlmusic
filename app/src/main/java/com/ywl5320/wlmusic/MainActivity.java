@@ -253,9 +253,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void start(View view) {
-//        wlMusic.setSource("/mnt/shared/Other/林俊杰 - 爱不会绝迹.wav");
+        wlMusic.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
 //        wlMusic.setSource(Environment.getExternalStorageDirectory().getAbsolutePath() + "/林俊杰 - 爱不会绝迹.wav");
-        wlMusic.setSource("https://vips-static.pnlyy.com/Fn57-AhK0RjfjymvEoIErGKmmcPm");
+//        wlMusic.setSource("https://vips-static.pnlyy.com/Fn57-AhK0RjfjymvEoIErGKmmcPm");
         wlMusic.prePared();
     }
 
