@@ -26,8 +26,8 @@ public class MyLog {
     public static final int A = 0x6;
     public static final int JSON = 0x7;
 
-//    private static boolean IS_SHOW_LOG = false;
-    private static boolean IS_SHOW_LOG = true;
+    private static boolean IS_SHOW_LOG = false;
+//    private static boolean IS_SHOW_LOG = true;
 
     public static void init(boolean isShowLog) {
         IS_SHOW_LOG = isShowLog;
