@@ -14,7 +14,7 @@
 
 ## Update v1.2.6 修复连续快速切换URL崩溃问题
 
-## Usage:（如果您的APP使用了本库，可以告诉我下哦^_^）
+### Usage:（如果您的APP使用了本库，可以告诉我下哦^_^）
 
 ### Gradle: [ ![Download](https://api.bintray.com/packages/ywl5320/maven/wlmusic/images/download.svg?version=1.2.6) ](https://bintray.com/ywl5320/maven/wlmusic/1.2.6/link)
 
