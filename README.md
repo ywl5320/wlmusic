@@ -6,6 +6,9 @@
 ## [我的视频课程（编码直播推流）：《Android视频编码和直播推流》](https://edu.csdn.net/course/detail/8942)
 ## 百度网盘链接: https://pan.baidu.com/s/1mvIflaxujEoufLrnyNNxRQ 提取码: mkki
 
+## *** 体验视频播放库 ***
+#### 请移步：https://github.com/wanliyang1990/wlmedia
+
 ## 8小时持续播放内存使用情况
 ![image](https://github.com/wanliyang1990/wlmusic/blob/master/imgs/mem.png)
 ## CPU和内存使用情况：测试设备：红米2A手机
