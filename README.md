@@ -7,7 +7,7 @@
 ## [我的视频课程（C++ OpenGL）：《Android C++ OpenGL》](https://edu.csdn.net/course/detail/19367)
 ## 百度网盘链接: https://pan.baidu.com/s/1mvIflaxujEoufLrnyNNxRQ 提取码: mkki
 
-## *** 体验视频(包含单独播放音频)播放库 ***
+## ****** 体验视频(包含单独播放音频，已优化了变速变调效果)播放库 ******
 #### 请移步：https://github.com/wanliyang1990/wlmedia
 
 ## 8小时持续播放内存使用情况
